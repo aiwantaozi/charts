@@ -13,6 +13,8 @@ data:
     {
       "access": "proxy",
       "basicAuth": false,
+      "editable": false,
+      "isDefault:": true,
       "name": "prometheus",
       "type": "prometheus",
       "url": "{{ .Values.prometheusDatasourceURL }}"
