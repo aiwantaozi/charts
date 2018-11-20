@@ -58,3 +58,13 @@ dependencies:
     version: 0.0.1
     condition: prometheus.enabled
     repository: "file://./charts/prometheus/"
+
+  - name: metric-expression
+    version: 0.0.1
+    condition: metric-expression.enabled
+    repository: "file://./charts/metric-expression/"
+
+  - name: exporter-fluentd
+    version: 0.0.1
+    condition: exporter-fluentd.enabled
+    repository: "file://./charts/exporter-fluentd/"

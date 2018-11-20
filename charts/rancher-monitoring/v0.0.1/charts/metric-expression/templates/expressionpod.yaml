@@ -1,0 +1,383 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    graph: container-cpu-usage-details
+  name: pod-cpu-cfs-throttled-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: pod cpu cfs throttled seconds sum rate
+  detailsGroupBy: container_name
+  legendFormat: "CPU cfs throttled"
+  detailsLegendFormat: "CPU cfs throttled([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: memory-usage-percent
+  name: pod-memory-usage-percent
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(container_memory_working_set_bytes{namespace="$Namespace", pod_name=~"$InstanceName"}) by ($GroupBy) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace="$Namespace", pod=~"$InstanceName"},"pod_name", "", "pod")) by ($GroupBy)
+  step: 10
+  description: pod memory usage percent
+  detailsGroupBy: container_name
+  legendFormat: "Memory"
+  detailsLegendFormat: "Memory([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: fs-bytes-sum
+  name: pod-fs-bytes-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(container_fs_usage_bytes{namespace="$Namespace", pod_name=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: pod fs bytes sum
+  detailsGroupBy: container_name
+  legendFormat: "Filesystem usage"
+  detailsLegendFormat: "Filesystem usage([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-receive-packets-sum-rate
+    graph: network-packet
+  name: pod-network-receive-packets-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_receive_packets_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network receive packets sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Receive"
+  detailsLegendFormat: "Receive([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-transmit-packets-sum-rate
+    graph: network-packet
+  name: pod-network-transmit-packets-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_transmit_packets_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network transmit packets sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Transmit packets"
+  detailsLegendFormat: "Transmit packets([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    graph: container-cpu-usage-details
+  name: pod-cpu-user-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_user_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: pod cpu user seconds sum rate
+  detailsGroupBy: container_name
+  legendFormat: "CPU user seconds"
+  detailsLegendFormat: "CPU user seconds([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: disk-io-reads-bytes-sum-rate
+    graph: disk-io
+  name: pod-disk-io-reads-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_fs_reads_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)  * 8 / 1024
+  step: 10
+  description: pod disk io reads bytes sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Read"
+  detailsLegendFormat: "Read([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-receive-bytes-sum-rate
+    graph: network-io
+  name: pod-network-receive-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_receive_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: pod network receive bytes sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Receive"
+  detailsLegendFormat: "Receive([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-transmit-bytes-sum-rate
+    graph: network-io
+  name: pod-network-transmit-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_transmit_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: pod network transmit bytes sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Transmit"
+  detailsLegendFormat: "Transmit([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-receive-packets-dropped-sum-rate
+    graph: network-packet
+  name: pod-network-receive-packets-dropped-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_receive_packets_dropped_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network receive packets dropped sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Receive packets dropped"
+  detailsLegendFormat: "Receive packets dropped([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: memory-usage-bytes-sum
+  name: pod-memory-usage-bytes-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace="$Namespace",pod_name=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: pod memory usage bytes sum
+  detailsGroupBy: container_name
+  legendFormat: "Use memory"
+  detailsLegendFormat: "Use memory([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: disk-io-writes-bytes-sum-rate
+    graph: disk-io
+  name: pod-disk-io-writes-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_fs_writes_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: pod disk io writes bytes sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Write"
+  detailsLegendFormat: "Write([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-receive-errors-sum-rate
+    graph: network-packet
+  name: pod-network-receive-errors-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_receive_errors_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network receive errors sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Receive errors"
+  detailsLegendFormat: "Receive errors([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    graph: container-cpu-usage
+  name: pod-cpu-usage-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_usage_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: pod cpu usage seconds sum rate
+  detailsGroupBy: container_name
+  legendFormat: "CPU usage seconds"
+  detailsLegendFormat: "CPU usage seconds([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-transmit-errors-sum-rate
+    graph: network-packet
+  name: pod-network-transmit-errors-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_transmit_errors_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network transmit errors sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Transmit errors"
+  detailsLegendFormat: "Transmit errors([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    metric: network-transmit-packets-dropped-sum-rate
+    graph: network-packet
+  name: pod-network-transmit-packets-dropped-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_network_transmit_packets_dropped_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: pod network transmit packets dropped sum rate
+  detailsGroupBy: container_name
+  legendFormat: "Transmit packets dropped"
+  detailsLegendFormat: "Transmit packets dropped([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+    graph: container-cpu-usage-details
+  name: pod-cpu-system-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_system_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: pod cpu system seconds sum rate
+  detailsGroupBy: container_name
+  legendFormat: "CPU system seconds"
+  detailsLegendFormat: "CPU system seconds([[container_name]])"

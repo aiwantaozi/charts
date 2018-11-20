@@ -1,0 +1,133 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+  name: pod-cpu-usage
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 700
+  title: pod-cpu-usage
+  thresholds: 10
+  metricsSelector:
+    component: pod
+    graph: container-cpu-usage
+  detailsMetricsSelector:
+    component: pod
+    graph: container-cpu-usage-details
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: mcpu
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+  name: pod-memory-usage-bytes-sum
+spec:
+  enable: true
+  priority: 701
+  title: pod-memory-usage-bytes-sum
+  thresholds: 10
+  metricsSelector:
+    component: pod
+    metric: memory-usage-bytes-sum
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: byte
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+  name: pod-network-io
+spec:
+  enable: true
+  priority: 702
+  title: pod-network-io
+  thresholds: 10
+  metricsSelector:
+    component: pod
+    graph: network-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+  name: pod-network-packet
+spec:
+  enable: true
+  priority: 703
+  title: pod-network-packet
+  thresholds: 10
+  metricsSelector:
+    component: pod
+    graph: network-packet
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: pps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: pod
+  name: pod-disk-io
+spec:
+  enable: true
+  priority: 704
+  title: pod-disk-io
+  thresholds: 10
+  metricsSelector:
+    component: pod
+    graph: disk-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps

@@ -1,0 +1,54 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: apiserver
+    cluster-graph: kube-component
+  name: apiserver-request-latency
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 300
+  title: apiserver-request-latency
+  thresholds: 10
+  metricsSelector:
+    component: apiserver
+    metric: request-latency-milliseconds-avg
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: ms
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: apiserver
+    cluster-graph: kube-component
+  name: apiserver-request-count
+spec:
+  enable: true
+  priority: 301
+  title: apiserver-request-count
+  thresholds: 10
+  metricsSelector:
+    component: apiserver
+    metric: request-count-sum-rate
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number

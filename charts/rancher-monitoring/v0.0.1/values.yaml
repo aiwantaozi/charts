@@ -239,6 +239,7 @@ prometheus:
       - exporter-kubelets
       - exporter-kubernetes
       - exporter-node
+      - exporter-fluentd
       - grafana
       - prometheus
       - prometheus-operator
@@ -271,4 +272,9 @@ prometheus:
     - source_labels: [__meta_kubernetes_service_name]
       regex: prometheus-operated
       action: drop
-
+metric-expression:
+  enabled: false
+  namespace: cattle-prometheus
+exporter-fluentd:
+  enabled: false
+  apiGroup: "monitoring.coreos.com"

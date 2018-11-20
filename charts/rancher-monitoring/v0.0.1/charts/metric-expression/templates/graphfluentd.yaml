@@ -1,0 +1,108 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: fluentd
+    cluster-graph: rancher-component
+  name: fluentd-input-record-number
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 300
+  title: fluentd-input-record-number
+  thresholds: 10
+  metricsSelector:
+    component: fluentd
+    metric: input-record-host
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: fluentd
+    cluster-graph: rancher-component
+  name: fluentd-output-record-number
+spec:
+  enable: true
+  priority: 301
+  title: fluentd-output-record-number
+  thresholds: 10
+  metricsSelector:
+    component: fluentd
+    metric: output-record-number
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: fluentd
+    cluster-graph: rancher-component
+  name: fluentd-output-errors
+spec:
+  enable: true
+  priority: 301
+  title: fluentd-output-errors
+  thresholds: 10
+  metricsSelector:
+    component: fluentd
+    metric: output-errors
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: fluentd
+    cluster-graph: rancher-component
+  name: fluentd-buffer-queue-length
+spec:
+  enable: true
+  priority: 301
+  title: fluentd-buffer-queue-length
+  thresholds: 10
+  metricsSelector:
+    component: fluentd
+    metric: buffer-queue-length
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number

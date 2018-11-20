@@ -1,0 +1,26 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: controllermanager
+    cluster-graph: kube-component
+  name: controllermanager-queue-depth
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 310
+  title: controllermanager-queue-depth
+  thresholds: 10
+  metricsSelector:
+    component: controllermanager
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number

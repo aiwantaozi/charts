@@ -1,0 +1,167 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-reading
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="reading"}
+  step: 10
+  description: ingresscontroller nginx connection reading
+  legendFormat: "Nginx reading connection"
+  detailsLegendFormat: "Nginx reading connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-waiting
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="waiting"}
+  step: 10
+  description: ingresscontroller nginx connection waiting
+  legendFormat: "Nginx waiting connection"
+  detailsLegendFormat: "Nginx waiting connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-writing
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="writing"}
+  step: 10
+  description: ingresscontroller nginx connection writing
+  legendFormat: "Nginx writing connection"
+  detailsLegendFormat: "Nginx writing connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-accepted
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="accepted"}
+  step: 10
+  description: ingresscontroller nginx connection accepted
+  legendFormat: "Nginx accepted connection"
+  detailsLegendFormat: "Nginx accepted connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-active
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="active"}
+  step: 10
+  description: ingresscontroller nginx connection active
+  legendFormat: "Nginx active connection"
+  detailsLegendFormat: "Nginx active connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    graph: nginx-connection
+  name: ingresscontroller-nginx-connection-handled
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: nginx_connections{state="handled"}
+  step: 10
+  description: ingresscontroller nginx connection handled
+  legendFormat: "Nginx handled connection"
+  detailsLegendFormat: "Nginx handled connection"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    metric: request-process-seconds
+  name: ingresscontroller-nginx-process-seconds
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: histogram_quantile(0.90, sum(rate(request_duration_seconds_bucket{ingress!=""}[2m])) by (le, path))
+  step: 10
+  description: ingresscontroller nginx request duration
+  legendFormat: "Nginx request duration"
+  detailsLegendFormat: "Nginx request duration"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    metric: upstream-response-seconds
+  name: ingresscontroller-upstream-response-seconds
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: histogram_quantile(0.90, sum(rate(upstream_response_time_seconds_bucket{ingress!=""}[2m])) by (le, path))
+  step: 10
+  description: ingresscontroller nginx upstream response seconds
+  legendFormat: "Upstream response seconds"
+  detailsLegendFormat: "Upstream response seconds"

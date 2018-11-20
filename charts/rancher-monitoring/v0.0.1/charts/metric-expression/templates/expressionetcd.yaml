@@ -1,0 +1,507 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-insufficient-members-count
+  name: etcd-server-insufficient-members-count
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: count(up{job="exporter-kube-etcd-system-monitoring", instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: etcd server insufficient members count
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-leader-changes-seen-sum-increase
+  name: etcd-server-leader-changes-seen-sum-increase
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(increase(etcd_server_leader_changes_seen_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd server leader changes seen sum increase
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: grpc-client-receive-bytes-sum-rate
+    graph: rpc-client-traffic
+  name: etcd-grpc-client-receive-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_network_client_grpc_received_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: etcd grpc client receive bytes sum rate
+  detailsGroupBy: instance
+  legendFormat: "Client traffic in"
+  detailsLegendFormat: "Client traffic in([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: db-bytes-sum
+  name: etcd-db-bytes-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(etcd_debugging_mvcc_db_total_size_in_bytes{instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: etcd db bytes sum
+  detailsGroupBy: instance
+  legendFormat: Db size"
+  detailsLegendFormat: "db size([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: rpc-client-traffic
+    metric: grpc-client-transmit-bytes-sum-rate
+  name: etcd-grpc-client-transmit-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_network_client_grpc_sent_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd grpc client transmit bytes sum rate
+  detailsGroupBy: instance
+  legendFormat: "Client traffic out"
+  detailsLegendFormat: "Client traffic uut([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-leader-sum
+  name: etcd-server-leader-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(etcd_server_has_leader{instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: etcd server leader sum
+  detailsGroupBy: instance
+  legendFormat: Has leader"
+  detailsLegendFormat: "has leader([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-proposals-committed-sum-increase
+  name: etcd-server-proposals-committed-sum-increase
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(increase(etcd_server_proposals_committed_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd server proposals committed sum increase
+  detailsGroupBy: instance
+  legendFormat: "Proposal commit rate"
+  detailsLegendFormat: "Proposal commit rate([[instance]])" 
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-proposals-applied-sum-increase
+  name: etcd-server-proposals-applied-sum-increase
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(increase(etcd_server_proposals_applied_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd server proposals applied sum increase
+  detailsGroupBy: instance
+  legendFormat: Proposals applied"
+  detailsLegendFormat: "proposals applied([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-proposals-failed-sum-increase
+  name: etcd-server-proposals-failed-sum-increase
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(increase(etcd_server_proposals_failed_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd server proposals failed sum increase
+  detailsGroupBy: instance
+  legendFormat: Proposals failed"
+  detailsLegendFormat: "proposals failed([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: server-proposals-pending-sum-increase
+  name: etcd-server-proposals-pending-sum-increase
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(increase(etcd_server_proposals_pending{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: etcd server proposals pending sum increase
+  detailsGroupBy: instance
+  legendFormat: Proposals pending"
+  detailsLegendFormat: "proposals pending([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: disk-wal-fsync-duration-seconds-sum-quantile
+    graph: sync-duration
+  name: etcd-disk-wal-fsync-duration-seconds-sum-quantile
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket{instance=~"$InstanceName"}[5m]))) by ($GroupBy) 
+  step: 10
+  description: etcd disk wal fsync duration seconds sum quantile
+  detailsGroupBy: instance
+  legendFormat: Wal fsync"
+  detailsLegendFormat: "Wal fsync([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: grpc-request-error-percent
+  name: etcd-grpc-request-error-percent
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(grpc_server_handled_total{grpc_code!="OK", instance=~"$InstanceName"}[5m])) / sum(rate(grpc_server_handled_total{instance=~"$InstanceName"}[5m]))
+  step: 10
+  description: etcd grpc request error percent
+  detailsGroupBy: instance
+  legendFormat: "Rpc failed rate"
+  detailsLegendFormat: "RPC failed rate([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: disk-commit-duration-seconds-sum-quantile
+    graph: sync-duration
+  name: etcd-disk-commit-duration-seconds-sum-quantile
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket{instance=~"$InstanceName"}[5m]))) by ($GroupBy) 
+  step: 10
+  description: etcd disk commit duration seconds sum quantile
+  detailsGroupBy: instance
+  legendFormat: "Disk commit duration"
+  detailsLegendFormat: "disk commit duration([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: grpc-request-slow-quantile
+  name: etcd-grpc-request-slow-quantile
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket{grpc_type="unary", instance=~"$InstanceName"}[5m])))) by ($GroupBy) 
+  step: 10
+  description: etcd grpc request slow quantile
+  detailsGroupBy: instance
+  legendFormat: Request slow"
+  detailsLegendFormat: "request slow([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: active-watch-stream
+    graph: etcd-stream
+  name: etcd-active-watch-stream
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(grpc_server_started_total{grpc_service="etcdserverpb.Watch",grpc_type="bidi_stream",instance=~"$InstanceName"}) - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Watch",grpc_type="bidi_stream",instance=~"$InstanceName"})
+  step: 10
+  description: Etcd watch stream
+  detailsGroupBy: instance
+  legendFormat: "Active watch stream"
+  detailsLegendFormat: "Active watch stream([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: lease-watch-stream
+    graph: etcd-stream
+  name: etcd-lease-watch-stream
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(grpc_server_started_total{grpc_service="etcdserverpb.Lease",grpc_type="bidi_stream"}) - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Lease",grpc_type="bidi_stream"})
+  step: 10
+  description: Etcd lease stream
+  detailsGroupBy: instance
+  legendFormat: "Lease watch stream"
+  detailsLegendFormat: "Lease watch stream([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: peer-traffic-in
+    graph: etcd-peer-traffic
+  name: etcd-peer-traffic-in
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_network_peer_received_bytes_total[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: Etcd peer traffic in
+  detailsGroupBy: instance
+  legendFormat: Traffic in"
+  detailsLegendFormat: "Traffic in([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: peer-traffic-out
+    graph: etcd-peer-traffic
+  name: etcd-peer-traffic-out
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_network_peer_sent_bytes_total[5m])) by ($GroupBy)
+  step: 10
+  description: Etcd peer traffic out
+  detailsGroupBy: instance
+  legendFormat: Traffic out"
+  detailsLegendFormat: "Traffic out([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: proposal
+  name: etcd-proposal-failure-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_server_proposals_failed_total[5m]))
+  step: 10
+  description: Proposal Failure Rate
+  detailsGroupBy: instance
+  legendFormat: Proposal failure"
+  detailsLegendFormat: "Proposal failure([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: rpc-rate
+  name: etcd-rpc-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(grpc_server_started_total{grpc_type="unary"}[5m]))
+  step: 10
+  description: rpc-rate
+  detailsGroupBy: instance
+  legendFormat: Rpc rate"
+  detailsLegendFormat: "Rpc rate([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: rpc-rate
+  name: etcd-rpc-rate-failed
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(grpc_server_handled_total{grpc_type="unary",grpc_code!="OK"}[5m]))
+  step: 10
+  description: rpc-rate
+  detailsGroupBy: instance
+  legendFormat: "Rpc failed rate"
+  detailsLegendFormat: "Rpc failed rate([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: disk-operate-duration
+  name: etcd-latency-distributions-of-commit-called-by-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_disk_backend_commit_duration_seconds_sum[1m]))
+  step: 10
+  description: The latency distributions of commit called by backend
+  detailsGroupBy: instance
+  legendFormat: "Db fsync"
+  detailsLegendFormat: "DB fsync([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    graph: disk-operate-duration
+  name: etcd-latency-distributions-of-fsync-called-by-wal
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(etcd_disk_wal_fsync_duration_seconds_sum[1m]))
+  step: 10
+  description: The latency distributions of fsync called by wal
+  detailsGroupBy: instance
+  legendFormat: "Fsync called by wal"
+  detailsLegendFormat: "Fsync called by wal([[instance]])"

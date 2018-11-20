@@ -1,0 +1,186 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-cpu-usage
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 500
+  title: node-cpu-usage
+  thresholds: 10
+  metricsSelector:
+    component: node
+    metric: cpu-usage-seconds-sum-rate
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: mcpu
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-cpu-load
+spec:
+  enable: true
+  priority: 501
+  title: node-cpu-load
+  thresholds: 10
+  metricsSelector:
+    component: node
+    graph: cpu-load
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-memory-usage
+spec:
+  enable: true
+  priority: 502
+  title: node-memory-usage
+  thresholds: 10
+  metricsSelector:
+    component: node
+    metric: memory-usage-percent
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: percent
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-fs-usage-percent
+spec:
+  enable: true
+  priority: 503
+  title: node-fs-usage-percent
+  description: node-fs-usage-percent
+  thresholds: 10
+  metricsSelector:
+    component: node
+    metric: fs-usage-percent
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: percent
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-disk-io
+spec:
+  enable: true
+  priority: 504
+  title: node-disk-io
+  description: disk-io
+  thresholds: 10
+  metricsSelector:
+    component: node
+    graph: disk-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-network-io
+spec:
+  enable: true
+  priority: 505
+  title: node-network-io
+  description: node network-io
+  thresholds: 10
+  metricsSelector:
+    component: node
+    graph: network-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+  name: node-network-packet
+spec:
+  enable: true
+  priority: 506
+  title: node-network-packet
+  description: node network-packet
+  thresholds: 10
+  metricsSelector:
+    component: node
+    graph: network-packet
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: pps

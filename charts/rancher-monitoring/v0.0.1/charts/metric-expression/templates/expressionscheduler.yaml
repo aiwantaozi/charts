@@ -1,0 +1,63 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: scheduler
+    metric: e-2-e-scheduling-latency-seconds-quantile
+  name: scheduler-e-2-e-scheduling-latency-seconds-quantile
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: histogram_quantile(0.99, sum(scheduler_e2e_scheduling_latency_microseconds_bucket{instance=~"$InstanceName"}) by (le, instance)) / 1e+06
+  step: 10
+  description: scheduler e 2 e scheduling latency seconds quantile
+  legendFormat: "E2E"
+  detailsGroupBy: instance  
+  detailsLegendFormat: "E2E([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: scheduler
+    metric: total-preemption-attempts
+  name: scheduler-total-preemption-attempts
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: scheduler_total_preemption_attempts
+  step: 10
+  description: Scheduler scheduling algorithm latency seconds quantile
+  legendFormat: "Preemption attempts"
+  detailsLegendFormat: "Preemption attempts([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: scheduler
+    metric: pod-unscheduler
+  name: scheduler-pod-unscheduler
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: count(kube_pod_status_scheduled{condition="false"})
+  step: 10
+  description: pod unscheduler
+  legendFormat: "Pod unscheduler"
+  detailsLegendFormat: "Pod unscheduler([[instance]])"

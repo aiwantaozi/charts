@@ -1,0 +1,133 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: workload
+  name: workload-cpu-usage
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 600
+  title: workload-cpu-usage
+  thresholds: 10
+  metricsSelector:
+    component: workload
+    graph: container-cpu-usage
+  detailsMetricsSelector:
+    component: pod
+    graph: container-cpu-usage-details
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: mcpu
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: workload
+  name: workload-memory-usage-bytes-sum
+spec:
+  enable: true
+  priority: 601
+  title: workload-memory-usage-bytes-sum
+  thresholds: 10
+  metricsSelector:
+    component: workload
+    metric: memory-usage-bytes-sum
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: byte
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: workload
+  name: workload-network-io
+spec:
+  enable: true
+  priority: 602
+  title: workload-network-io
+  thresholds: 10
+  metricsSelector:
+    component: workload
+    graph: network-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: workload
+  name: workload-network-packet
+spec:
+  enable: true
+  priority: 603
+  title: workload-network-packet
+  thresholds: 10
+  metricsSelector:
+    component: workload
+    graph: network-packet
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: pps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: workload
+  name: workload-disk-io
+spec:
+  enable: true
+  priority: 604
+  title: workload-disk-io
+  thresholds: 10
+  metricsSelector:
+    component: workload
+    graph: disk-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps

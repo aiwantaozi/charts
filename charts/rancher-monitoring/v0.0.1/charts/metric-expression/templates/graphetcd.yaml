@@ -1,0 +1,217 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-grpc-client
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 202
+  title: etcd-grpc-client
+  description: etcd grpc client receive/send bytes sum rate
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: rpc-client-traffic
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+    metric: db-bytes-sum 
+  name: etcd-db-bytes-sum
+spec:
+  enable: true
+  priority: 201
+  title: etcd-db-bytes-sum
+  description: etcd db bytes sum
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    metric: db-bytes-sum 
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: byte
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-stream
+spec:
+  enable: true
+  priority: 203
+  title: etcd-stream
+  description: Etcd lease/watch stream
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: etcd-stream
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-peer-traffic
+spec:
+  enable: true
+  priority: 204
+  title: etcd-peer-traffic
+  description: Etcd peer traffic in/out
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: etcd-peer-traffic
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps
+---
+# apiVersion: cluster.cattle.io/v3
+# kind: MonitorGraph
+# metadata:
+#   labels:
+#     app: {{ template "app.name" . }}
+#     chart: {{ template "app.version" . }}
+#     heritage: {{ .Release.Service }}
+#     release: {{ .Release.Name }}
+#     source: rancher-monitoring
+#     level: cluster
+#     component: etcd
+#   name: etcd-memory
+# spec:
+#   enable: true
+#   priority: 20
+#   title: etcd-memory
+#   description: Etcd peer traffic in/out
+#   thresholds: 10
+#   metricsSelector:
+#     component: etcd
+#     metric: memory
+#   xAxis:
+#     show: true
+#   yAxis:
+#     show: true
+#     unit: per
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-raft-proposals
+spec:
+  enable: true
+  priority: 206
+  title: etcd-raft-proposals
+  description: Etcd raft proposals
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: proposal
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-rpc-rate
+spec:
+  enable: true
+  priority: 205
+  title: etcd-rpc-rate
+  description: Etcd rpc-rate
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: rpc-rate
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: ops
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-sync-duration
+spec:
+  enable: true
+  priority: 207
+  title: etcd-sync-duration
+  description: Etcd sync-duration
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: disk-operate-duration
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: seconds

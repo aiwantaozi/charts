@@ -1,0 +1,361 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-transmit-bytes-sum-rate
+    graph: network-io
+  name: node-network-transmit-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_transmit_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: node network transmit bytes sum rate
+  detailsGroupBy: device  
+  legendFormat: "Transmit"
+  detailsLegendFormat: "[[device]]"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-receive-packets-dropped-sum-rate
+    graph: network-packet
+  name: node-network-receive-packets-dropped-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_receive_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: node network receive packets dropped sum rate
+  detailsGroupBy: device  
+  legendFormat: "Receive packets"
+  detailsLegendFormat: "Receive packets:([[device]])"
+
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-transmit-packets-sum-rate
+    graph: network-io
+  name: node-network-transmit-packets-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_transmit_packets_total{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: node network transmit packets sum rate
+  detailsGroupBy: device  
+  legendFormat: "Transmit packets"
+  detailsLegendFormat: "Transmit packets([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: disk-io-writes-bytes-sum-rate
+    graph: disk-io
+  name: node-disk-io-writes-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_disk_writes_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: node disk io writes bytes sum rate
+  detailsGroupBy: device  
+  legendFormat: "Write"
+  detailsLegendFormat: "Write([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: disk-io-reads-bytes-sum-rate
+    graph: disk-io
+  name: node-disk-io-reads-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_disk_read_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: node disk io reads bytes sum rate
+  detailsGroupBy: device  
+  legendFormat: "Read"
+  detailsLegendFormat: "Read([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: fs-usage-percent
+  name: node-fs-usage-percent
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: (sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy) - sum(node_filesystem_free_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy)) / sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: node fs usage percent
+  detailsGroupBy: device  
+  legendFormat: "Filesystem usage"
+  detailsLegendFormat: "[[device]]"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-receive-packets-sum-rate
+    graph: network-packet
+  name: node-network-receive-packets-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_receive_packets_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: node network receive packets sum rate
+  detailsGroupBy: device  
+  legendFormat: "Receive packets"
+  detailsLegendFormat: "Receive packets([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-transmit-errors-sum-rate
+    graph: network-packet
+  name: node-network-transmit-errors-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_transmit_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  step: 10
+  description: node network transmit errors sum rate
+  detailsGroupBy: device  
+  legendFormat: "Transmit errors"
+  detailsLegendFormat: "Transmit errors([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: cpu-load-5
+    graph: cpu-load
+  name: node-cpu-load-5
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(node_load1{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: node cpu load 1
+  legendFormat: "Load1"
+  detailsLegendFormat: "Load1"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: cpu-load-15
+    graph: cpu-load
+  name: node-cpu-load-15
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(node_load15{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: node cpu load 15
+  legendFormat: "Load15"
+  detailsLegendFormat: "Load15"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: cpu-usage-seconds-sum-rate
+  name: node-cpu-usage-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_cpu_seconds_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: node cpu usage seconds sum rate
+  detailsGroupBy: mode
+  legendFormat: "CPU"
+  detailsLegendFormat: "[[mode]]"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: memory-usage-percent
+  name: node-memory-usage-percent
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: 1 - sum(node_memory_MemAvailable_bytes{instance=~"$InstanceName"}) by ($GroupBy) / sum(node_memory_MemTotal_bytes{instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: node memory usage percent
+  legendFormat: "Memory"
+  detailsLegendFormat: "Memory"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-receive-bytes-sum-rate
+    graph: network-io
+  name: node-network-receive-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_receive_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  step: 10
+  description: node network receive bytes sum rate
+  detailsGroupBy: device  
+  legendFormat: "Receive"
+  detailsLegendFormat: "Receive([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-receive-errors-sum-rate
+    graph: network-packet
+  name: node-network-receive-errors-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_receive_receive_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: node network receive errors sum rate
+  detailsGroupBy: device  
+  legendFormat: "Receive packets"
+  detailsLegendFormat: "Receive packets([[device]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: cpu-load-1
+    graph: cpu-load
+  name: node-cpu-load-1
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(node_load5{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  step: 10
+  description: node cpu load 1
+  legendFormat: "Load1"
+  detailsLegendFormat: "Load1"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: node
+    metric: network-transmit-packets-dropped-sum-rate
+    graph: network-packet
+  name: node-network-transmit-packets-dropped-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(node_network_transmit_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) 
+  step: 10
+  description: node network transmit packets dropped sum rate
+  legendFormat: "Transmit dropped"
+  detailsGroupBy: device  
+  detailsLegendFormat: "Transmit packets dropped([[device]])"
