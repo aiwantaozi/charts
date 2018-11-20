@@ -177,6 +177,7 @@ additionalAlertManagerConfigs: {}
 # - targets:
 #   - "localhost:9093"
 
+listenLocal: false
 
 sidecarsSpec: []
 # - name: sidecar
