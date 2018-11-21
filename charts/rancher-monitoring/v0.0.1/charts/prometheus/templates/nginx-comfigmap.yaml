@@ -42,7 +42,7 @@ data:
         proxy_set_header X-Forwarded-Proto $scheme;
 
         location / {
-          proxy_pass     http://prometheus-operated:9090/;
+          proxy_pass     http://prometheus-operated:{{.Values.listenPort}}/;
 
           sub_filter_types text/html;
           sub_filter_once off;
