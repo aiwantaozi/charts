@@ -224,6 +224,7 @@ prometheus:
   ## Already exist ServiceAccount
   ##
   serviceAccountName: ""
+  listenLocal: false
   serviceMonitorsSelector:
     matchExpressions:
     - key: app
