@@ -136,7 +136,7 @@ spec:
       nodeSelector:
     {{ toYaml .Values.nodeSelector | indent 4 }}
     {{- end }}
-    {{- if .Values.enabeldRBAC }}
+    {{- if .Values.enabledRBAC }}
       serviceAccountName: {{ .Values.serviceAccountName }}
     {{- end }}
     {{- if .Values.tolerations }}
