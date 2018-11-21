@@ -178,7 +178,6 @@ additionalAlertManagerConfigs: {}
 #   - "localhost:9093"
 
 listenLocal: false
-listenPort: "9090"
 
 sidecarsSpec: []
 # - name: sidecar

@@ -224,8 +224,6 @@ prometheus:
   ## Already exist ServiceAccount
   ##
   serviceAccountName: ""
-  listenLocal: false
-  listenPort: "9090"
   serviceMonitorsSelector:
     matchExpressions:
     - key: app
