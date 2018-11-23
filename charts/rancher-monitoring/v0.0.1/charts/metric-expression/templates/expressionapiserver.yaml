@@ -13,7 +13,7 @@ metadata:
   name: apiserver-request-latency-milliseconds-avg
   namespace: {{ .Values.namespace }}
 spec:
-  expression: avg(apiserver_request_latencies_sum / apiserver_request_latencies_count) by ($GroupBy) /1e+06  
+  expression: avg(apiserver_request_latencies_sum / apiserver_request_latencies_count) by ($groupBy) /1e+06  
   step: 10
   description: apiserver request latency milliseconds avg
   groupBy: instance
@@ -33,12 +33,37 @@ metadata:
     level: cluster
     component: apiserver
     metric: request-count-sum-rate
+    graph: request-count
   name: apiserver-request-count-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(apiserver_request_count{instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(apiserver_request_count{instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: apiserver request count sum rate
+  groupBy: instance
+  detailsGroupBy: instance, code
+  legendFormat: "[[instance]]"
+  detailsLegendFormat: "[[code]]([[instance]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: apiserver
+    metric: request-error-count-sum-rate
+    graph: request-count
+  name: apiserver-request-error-count-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(apiserver_request_count{instance=~"$instance", code!~"2.."}[5m])) by ($groupBy)
+  step: 10
+  description: apiserver request error count sum rate
   groupBy: instance
   detailsGroupBy: instance, code
   legendFormat: "[[instance]]"

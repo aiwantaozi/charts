@@ -1,0 +1,208 @@
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    graph: container-cpu-usage-details
+  name: container-cpu-cfs-throttled-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy) 
+  step: 10
+  description: container cpu cfs throttled seconds sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "CPU cfs throttled"
+  detailsLegendFormat: "CPU cfs throttled([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    graph: container-cpu-usage
+  name: container-cpu-usage-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy) 
+  step: 10
+  description: container cpu usage seconds sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "CPU usage seconds"
+  detailsLegendFormat: "CPU usage seconds([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    graph: container-cpu-usage-details
+  name: container-cpu-system-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_system_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy) 
+  step: 10
+  description: container cpu system seconds sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "CPU system seconds"
+  detailsLegendFormat: "CPU system seconds([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    graph: container-cpu-usage-details
+  name: container-cpu-user-seconds-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_cpu_user_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy) 
+  step: 10
+  description: container cpu user seconds sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "CPU user seconds"
+  detailsLegendFormat: "CPU user seconds([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    metric: memory-usage-percent
+  name: container-memory-usage-percent
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(container_memory_working_set_bytes{namespace=~"$namespace", pod_name=~"$podName", container_name=~"$containerName"}) by ($groupBy) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace", pod=~"$podName", container=~"$containerName"},"container_name", "", "container")) by (container_name)
+  step: 10
+  description: container memory usage percent
+  legendFormat: "Memory"
+  detailsLegendFormat: "Memory([[container_name]])"
+  detailsGroupBy: container_name
+  groupBy: container_name
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    metric: memory-usage-bytes-sum
+  name: container-memory-usage-bytes-sum
+  namespace: {{ .Values.namespace }}
+spec: 
+  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}) by ($groupBy)
+  step: 10
+  description: container memory usage bytes sum
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "Memory usage"
+  detailsLegendFormat: "Memory usage([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    metric: fs-bytes-sum
+  name: container-fs-bytes-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(container_fs_usage_bytes{namespace=~"$namespace", pod_name=~"$podName", container_name=~"$containerName"}) by ($groupBy)
+  step: 10
+  description: container fs bytes sum
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "Filesystem usage"
+  detailsLegendFormat: "Filesystem usage([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    metric: disk-io-writes-bytes-sum-rate
+    graph: disk-io
+  name: container-disk-io-writes-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_fs_writes_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy) * 8 / 1024
+  step: 10
+  description: container disk io writes bytes sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "Write"
+  detailsLegendFormat: "Write([[container_name]])"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+    metric: disk-io-reads-bytes-sum-rate
+    graph: disk-io
+  name: container-disk-io-reads-bytes-sum-rate
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: sum(rate(container_fs_reads_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name=~"$containerName"}[5m])) by ($groupBy)  * 8 / 1024
+  step: 10
+  description: container disk io reads bytes sum rate
+  detailsGroupBy: container_name
+  groupBy: container_name
+  legendFormat: "Read"
+  detailsLegendFormat: "Read([[container_name]])"

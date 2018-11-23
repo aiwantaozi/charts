@@ -13,7 +13,7 @@ metadata:
   name: controllermanager-volumes-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(volumes_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(volumes_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager volumes depth
   detailsGroupBy: instance
@@ -35,7 +35,7 @@ metadata:
   name: controllermanager-deployment-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(deployment_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(deployment_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager deployment adds
   detailsGroupBy: instance
@@ -57,7 +57,7 @@ metadata:
   name: controllermanager-replicaset-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(replicaset_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(replicaset_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager replicaset depth
   detailsGroupBy: instance
@@ -79,7 +79,7 @@ metadata:
   name: controllermanager-service-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(service_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(service_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager service depth
   detailsGroupBy: instance
@@ -101,7 +101,7 @@ metadata:
   name: controllermanager-serviceaccount-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(serviceaccount_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(serviceaccount_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager serviceaccount depth
   detailsGroupBy: instance
@@ -123,7 +123,7 @@ metadata:
   name: controllermanager-endpoint-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(endpoint_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(endpoint_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager endpoint depth
   detailsGroupBy: instance
@@ -145,7 +145,7 @@ metadata:
   name: controllermanager-daemonset-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(daemonset_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(daemonset_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager daemonset depth
   detailsGroupBy: instance
@@ -168,7 +168,7 @@ metadata:
   name: controllermanager-deployment-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(deployment_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(deployment_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager deployment depth
   detailsGroupBy: instance
@@ -190,7 +190,7 @@ metadata:
   name: controllermanager-statefulset-depth
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(statefulset_depth{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(statefulset_depth{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: controllermanager statefulset adds
   detailsGroupBy: instance

@@ -23,7 +23,7 @@ spec:
     show: true
   yAxis:
     show: true
-    unit: mcpu
+    unit: percent
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorGraph

@@ -9,11 +9,11 @@ metadata:
     source: rancher-monitoring
     level: cluster
     component: fluentd
-    metric: input-record-number
+    metric: input-record
   name: input-record-number
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(fluentd_input_status_num_records_total) by ($GroupBy)
+  expression: sum(rate(fluentd_input_status_num_records_total[5m])) by ($groupBy)
   step: 10
   description: Fluentd input status num records total
   detailsGroupBy: instance
@@ -31,16 +31,16 @@ metadata:
     source: rancher-monitoring
     level: cluster
     component: fluentd
-    metric: output-record-number
+    metric: output-record
   name: output-record-number
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(fluentd_output_status_num_records_total) by ($GroupBy)
+  expression: sum(rate(fluentd_output_status_num_records_total[5m])) by ($groupBy)
   step: 10
   description: Fluentd output status num records total
   detailsGroupBy: instance
   legendFormat: "Output record number"  
-  detailsLegendFormat: "Output record number[[instance]]"
+  detailsLegendFormat: "Output record number([[instance]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -57,12 +57,12 @@ metadata:
   name: output-errors
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(fluentd_output_status_num_errors) by ($GroupBy)
+  expression: sum(rate(fluentd_output_status_num_errors[5m])) by ($groupBy)
   step: 10
   description: Fluentd output errors number
   detailsGroupBy: type
-  legendFormat: "Output errors"  
-  detailsLegendFormat: "Plugin types([[type]])"
+  legendFormat: "Plugin Output errors"  
+  detailsLegendFormat: "Plugin([[type]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -79,12 +79,12 @@ metadata:
   name: buffer-queue-length
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(fluentd_output_status_buffer_queue_length) by ($GroupBy)
+  expression: sum(rate(fluentd_output_status_buffer_queue_length[5m])) by ($groupBy)
   step: 10
   description: Fluentd Buffer queue length
   groupBy: ".+"
   detailsGroupBy: instance
-  legendFormat: "Buffer queue length"  
+  legendFormat: "Buffer queue"  
   detailsLegendFormat: "[[instance]]"
 
 

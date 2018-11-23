@@ -14,7 +14,7 @@ metadata:
   name: workload-disk-io-writes-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_fs_writes_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)  * 8 / 1024
+  expression: sum(rate(container_fs_writes_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)  * 8 / 1024
   step: 10
   description: workload disk io writes bytes sum rate
   detailsGroupBy: pod_name
@@ -37,7 +37,7 @@ metadata:
   name: workload-disk-io-reads-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_fs_reads_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(container_fs_reads_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: workload disk io reads bytes sum rate
   detailsGroupBy: pod_name
@@ -59,7 +59,7 @@ metadata:
   name: workload-fs-bytes-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(container_fs_usage_bytes{namespace="$Namespace", pod_name=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(container_fs_usage_bytes{namespace=~"$namespace", pod_name=~"$podName", container_name!=""}) by ($groupBy)
   step: 10
   description: workload fs bytes sum
   detailsGroupBy: pod_name
@@ -82,7 +82,7 @@ metadata:
   name: workload-network-transmit-packets-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_transmit_packets_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_transmit_packets_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network transmit packets sum rate
   detailsGroupBy: pod_name
@@ -105,12 +105,12 @@ metadata:
   name: workload-network-receive-packets-dropped-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_receive_packets_dropped_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_receive_packets_dropped_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network receive packets dropped sum rate
   detailsGroupBy: pod_name
-  legendFormat: "Receive packets dropped"
-  detailsLegendFormat: "Receive packets dropped([[pod_name]])"
+  legendFormat: "Receive dropped"
+  detailsLegendFormat: "Receive dropped([[pod_name]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -128,12 +128,12 @@ metadata:
   name: workload-cpu-usage-seconds-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_cpu_usage_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) 
+  expression: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy) 
   step: 10
   description: workload cpu usage seconds sum rate
   detailsGroupBy: pod_name
-  legendFormat: "CPU usage seconds"
-  detailsLegendFormat: "CPU usage seconds([[pod_name]])"
+  legendFormat: "CPU usage"
+  detailsLegendFormat: "CPU usage([[pod_name]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -151,7 +151,7 @@ metadata:
   name: workload-cpu-system-seconds-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_cpu_system_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_cpu_system_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload cpu system seconds sum rate
   detailsGroupBy: pod_name
@@ -174,7 +174,7 @@ metadata:
   name: workload-network-receive-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_receive_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(container_network_receive_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: workload network receive bytes sum rate
   detailsGroupBy: pod_name
@@ -197,7 +197,7 @@ metadata:
   name: workload-network-receive-errors-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_receive_errors_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_receive_errors_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network receive errors sum rate
   detailsGroupBy: pod_name
@@ -220,7 +220,7 @@ metadata:
   name: workload-network-receive-packets-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_receive_packets_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_receive_packets_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network receive packets sum rate
   detailsGroupBy: pod_name
@@ -242,7 +242,7 @@ metadata:
   name: workload-memory-usage-bytes-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace="$Namespace",pod_name=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace=~"$namespace",pod_name=~"$podName", container_name!=""}) by ($groupBy)
   step: 10
   description: workload memory usage bytes sum
   detailsGroupBy: pod_name
@@ -264,7 +264,7 @@ metadata:
   name: workload-memory-usage-percent
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(container_memory_working_set_bytes{namespace="$Namespace", pod_name=~"$InstanceName"}) by ($GroupBy) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace="$Namespace", pod=~"$InstanceName"},"pod_name", "", "pod")) by ($GroupBy)
+  expression: sum(container_memory_working_set_bytes{namespace=~"$namespace", pod_name=~"$podName", container_name!=""}) by ($groupBy) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace", pod=~"$InstanceName"},"pod_name", "", "pod")) by ($groupBy)
   step: 10
   description: workload memory usage percent
   detailsGroupBy: pod_name
@@ -287,7 +287,7 @@ metadata:
   name: workload-network-transmit-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_transmit_bytes_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(container_network_transmit_bytes_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: workload network transmit bytes sum rate
   detailsGroupBy: pod_name
@@ -310,11 +310,11 @@ metadata:
   name: workload-network-transmit-errors-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_transmit_errors_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_transmit_errors_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network transmit errors sum rate
   detailsGroupBy: pod_name
-  legendFormat: "Receive transmit errors"
+  legendFormat: "Transmit errors"
   detailsLegendFormat: "Transmit errors([[pod_name]])"
 ---
 apiVersion: cluster.cattle.io/v3
@@ -333,12 +333,12 @@ metadata:
   name: workload-network-transmit-packets-dropped-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_network_transmit_packets_dropped_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_network_transmit_packets_dropped_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload network transmit packets dropped sum rate
   detailsGroupBy: pod_name
-  legendFormat: "Transmit packets dropped"
-  detailsLegendFormat: "Transmit packets dropped([[pod_name]])"
+  legendFormat: "Transmit dropped"
+  detailsLegendFormat: "Transmit dropped([[pod_name]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -356,7 +356,7 @@ metadata:
   name: workload-cpu-user-seconds-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_cpu_user_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_cpu_user_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload cpu user seconds sum rate
   detailsGroupBy: pod_name
@@ -378,7 +378,7 @@ metadata:
   name: workload-cpu-cfs-throttled-seconds-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace="$Namespace",pod_name=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace=~"$namespace",pod_name=~"$podName", container_name!=""}[5m])) by ($groupBy)
   step: 10
   description: workload cpu cfs throttled seconds sum rate
   detailsGroupBy: pod_name

@@ -14,7 +14,7 @@ metadata:
   name: cluster-disk-io-reads-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_disk_read_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(node_disk_read_bytes_total{instance=~"$instance"}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: cluster disk io reads bytes sum rate
   detailsGroupBy: instance
@@ -37,7 +37,7 @@ metadata:
   name: cluster-network-transmit-bytes-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_transmit_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(node_network_transmit_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: cluster network transmit bytes sum rate
   detailsGroupBy: instance
@@ -57,10 +57,10 @@ metadata:
     component: cluster
     metric: cpu-load-5
     graph: cpu-load
-  name: cluster-cpu-load-1
+  name: cluster-cpu-load-5
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(node_load5{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(node_load5{instance=~"$instance"}) by ($groupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$instance"}) by ($groupBy)
   step: 10
   description: cluster cpu load 5
   detailsGroupBy: instance
@@ -83,7 +83,7 @@ metadata:
   name: cluster-cpu-load-1
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(node_load1{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(node_load1{instance=~"$instance"}) by ($groupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$instance"}) by ($groupBy)
   step: 10
   description: cluster cpu load 1
   detailsGroupBy: instance
@@ -106,7 +106,7 @@ metadata:
   name: cluster-disk-io-writes-bytes-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_disk_writes_bytes_total{instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(node_disk_written_bytes_total{instance=~"$instance"}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: cluster disk io writes bytes sum rate
   detailsGroupBy: instance
@@ -128,11 +128,11 @@ metadata:
   name: cluster-fs-usage-percent
   namespace: {{ .Values.namespace }}
 spec:
-  expression: (sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy) - sum(node_filesystem_free_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy)) / sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$InstanceName"}) by ($GroupBy)
+  expression: (sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$instance"}) by ($groupBy) - sum(node_filesystem_free_bytes{device!="rootfs",instance=~"$instance"}) by ($groupBy)) / sum(node_filesystem_size_bytes{device!="rootfs",instance=~"$instance"}) by ($groupBy)
   step: 10
   description: cluster fs usage percent
   detailsGroupBy: instance
-  legendFormat: "File size"
+  legendFormat: "Disk usage"
   detailsLegendFormat: "[[instance]]"
 ---
 apiVersion: cluster.cattle.io/v3
@@ -151,7 +151,7 @@ metadata:
   name: cluster-network-receive-errors-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_receive_receive_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_receive_receive_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network receive errors sum
   detailsGroupBy: instance
@@ -174,7 +174,7 @@ metadata:
   name: cluster-cpu-load-15
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(node_load15{instance=~"$InstanceName"}) by ($GroupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$InstanceName"}) by ($GroupBy)
+  expression: sum(node_load15{instance=~"$instance"}) by ($groupBy) / count(node_cpu_seconds_total{mode="system",instance=~"$instance"}) by ($groupBy)
   step: 10
   description: cluster cpu load 15
   detailsGroupBy: instance
@@ -197,7 +197,7 @@ metadata:
   name: cluster-network-receive-bytes-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_receive_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy) * 8 / 1024
+  expression: sum(rate(node_network_receive_bytes_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy) * 8 / 1024
   step: 10
   description: cluster network receive bytes sum rate
   detailsGroupBy: instance
@@ -220,7 +220,7 @@ metadata:
   name: cluster-network-receive-packets-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_receive_packets_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_receive_packets_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network receive packets sum
   detailsGroupBy: instance
@@ -243,7 +243,7 @@ metadata:
   name: cluster-network-transmit-errors-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_transmit_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_transmit_errs_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network transmit errors sum
   detailsGroupBy: instance
@@ -266,12 +266,12 @@ metadata:
   name: cluster-network-receive-packets-dropped-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_receive_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_receive_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network receive packets dropped sum
   detailsGroupBy: instance
-  legendFormat: "Receive packets"
-  detailsLegendFormat: "Packets droppped([[instance]])"
+  legendFormat: "Receive droppped"
+  detailsLegendFormat: "Receive droppped([[instance]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -289,7 +289,7 @@ metadata:
   name: cluster-network-transmit-packets-dropped-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_transmit_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_transmit_drop_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network transmit packets dropped sum
   detailsGroupBy: instance
@@ -312,7 +312,7 @@ metadata:
   name: cluster-network-transmit-packets-sum
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_network_transmit_packets_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$InstanceName"}[5m])) by ($GroupBy)
+  expression: sum(rate(node_network_transmit_packets_total{device!~"lo|veth.*|docker.*|flannel.*|cali.*|cbr.*",instance=~"$instance"}[5m])) by ($groupBy)
   step: 10
   description: cluster network transmit packets sum
   detailsGroupBy: instance
@@ -334,7 +334,7 @@ metadata:
   name: cluster-cpu-usage-seconds-sum-rate
   namespace: {{ .Values.namespace }}
 spec:
-  expression: sum(rate(node_cpu_seconds_total[5m])) by ($GroupBy) 
+  expression: 100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by ($groupBy) * 100)  
   step: 10
   description: cluster cpu usage seconds sum rate
   detailsGroupBy: instance
@@ -356,9 +356,9 @@ metadata:
   name: cluster-memory-usage-percent
   namespace: {{ .Values.namespace }}
 spec:
-  expression: 1 - sum(node_memory_MemAvailable_bytes{instance=~"$InstanceName"}) by ($GroupBy) / sum(node_memory_MemTotal_bytes{instance=~"$InstanceName"}) by ($GroupBy)
+  expression: 1 - sum(node_memory_MemAvailable_bytes{instance=~"$instance"}) by ($groupBy) / sum(node_memory_MemTotal_bytes{instance=~"$instance"}) by ($groupBy)
   step: 10
   description: cluster memory usage percent
   detailsGroupBy: instance
-  legendFormat: "Memory"
+  legendFormat: "Memory usage"
   detailsLegendFormat: "[[instance]]"

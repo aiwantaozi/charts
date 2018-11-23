@@ -16,8 +16,8 @@ spec:
   expression: nginx_connections{state="reading"}
   step: 10
   description: ingresscontroller nginx connection reading
-  legendFormat: "Nginx reading connection"
-  detailsLegendFormat: "Nginx reading connection"
+  legendFormat: "Reading connections"
+  detailsLegendFormat: "Reading connections"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -58,8 +58,8 @@ spec:
   expression: nginx_connections{state="writing"}
   step: 10
   description: ingresscontroller nginx connection writing
-  legendFormat: "Nginx writing connection"
-  detailsLegendFormat: "Nginx writing connection"
+  legendFormat: "Writing connections"
+  detailsLegendFormat: "Writing connections"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -79,8 +79,8 @@ spec:
   expression: nginx_connections{state="accepted"}
   step: 10
   description: ingresscontroller nginx connection accepted
-  legendFormat: "Nginx accepted connection"
-  detailsLegendFormat: "Nginx accepted connection"
+  legendFormat: "Accepted connections"
+  detailsLegendFormat: "Accepted connections"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -100,8 +100,8 @@ spec:
   expression: nginx_connections{state="active"}
   step: 10
   description: ingresscontroller nginx connection active
-  legendFormat: "Nginx active connection"
-  detailsLegendFormat: "Nginx active connection"
+  legendFormat: "Active connections"
+  detailsLegendFormat: "Active connections"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -121,29 +121,8 @@ spec:
   expression: nginx_connections{state="handled"}
   step: 10
   description: ingresscontroller nginx connection handled
-  legendFormat: "Nginx handled connection"
-  detailsLegendFormat: "Nginx handled connection"
----
-apiVersion: cluster.cattle.io/v3
-kind: MonitorMetric
-metadata:
-  labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
-    source: rancher-monitoring
-    level: cluster
-    component: ingresscontroller
-    metric: request-process-seconds
-  name: ingresscontroller-nginx-process-seconds
-  namespace: {{ .Values.namespace }}
-spec:
-  expression: histogram_quantile(0.90, sum(rate(request_duration_seconds_bucket{ingress!=""}[2m])) by (le, path))
-  step: 10
-  description: ingresscontroller nginx request duration
-  legendFormat: "Nginx request duration"
-  detailsLegendFormat: "Nginx request duration"
+  legendFormat: "Handled connections"
+  detailsLegendFormat: "Handled connections"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -157,11 +136,35 @@ metadata:
     level: cluster
     component: ingresscontroller
     metric: upstream-response-seconds
-  name: ingresscontroller-upstream-response-seconds
+  name: ingresscontroller-upstream-response-seconds-by-host
   namespace: {{ .Values.namespace }}
 spec:
-  expression: histogram_quantile(0.90, sum(rate(upstream_response_time_seconds_bucket{ingress!=""}[2m])) by (le, path))
+  expression: sort_desc(max(upstream_response_time_seconds_sum) by (host, path))
   step: 10
-  description: ingresscontroller nginx upstream response seconds
+  description: ingresscontroller nginx upstream response seconds by host
   legendFormat: "Upstream response seconds"
   detailsLegendFormat: "Upstream response seconds"
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorMetric
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: ingresscontroller
+    metric: request-process-seconds
+  name: ingresscontroller-nginx-process-seconds-by-path
+  namespace: {{ .Values.namespace }}
+spec:
+  expression: max(request_duration_seconds_bucket{le="1"}) by ($groupBy)
+  step: 10
+  description: ingresscontroller nginx request duration by path
+  groupBy: host, path
+  legendFormat: "Request duration([[host]]:[[path]])"
+  detailsLegendFormat: "Request duration([[host]]:[[path]])"
+
+  

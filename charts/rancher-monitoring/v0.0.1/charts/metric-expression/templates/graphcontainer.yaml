@@ -7,24 +7,26 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     source: rancher-monitoring
-    level: cluster
-    component: fluentd
-    cluster-graph: rancher-component
-  name: fluentd-input-record-number
+    level: project
+    component: container
+  name: container-cpu-usage
   namespace: {{ .Values.namespace }}
 spec:
   enable: true
-  priority: 300
-  title: fluentd-input-record-number
+  priority: 800
+  title: container-cpu-usage
   thresholds: 10
   metricsSelector:
-    component: fluentd
-    metric: input-record
+    component: container
+    graph: container-cpu-usage
+  detailsMetricsSelector:
+    component: container
+    graph: container-cpu-usage-details
   xAxis:
     show: true
   yAxis:
     show: true
-    unit: number
+    unit: mcpu
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorGraph
@@ -35,23 +37,22 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     source: rancher-monitoring
-    level: cluster
-    component: fluentd
-    cluster-graph: rancher-component
-  name: fluentd-output-record-number
+    level: project
+    component: container
+  name: container-memory-usage-bytes-sum
 spec:
   enable: true
-  priority: 301
-  title: fluentd-output-record-number
+  priority: 801
+  title: container-memory-usage-bytes-sum
   thresholds: 10
   metricsSelector:
-    component: fluentd
-    metric: output-record
+    component: container
+    metric: memory-usage-bytes-sum
   xAxis:
     show: true
   yAxis:
     show: true
-    unit: number
+    unit: byte
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorGraph
@@ -62,23 +63,22 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     source: rancher-monitoring
-    level: cluster
-    component: fluentd
-    cluster-graph: rancher-component
-  name: fluentd-output-errors
+    level: project
+    component: container
+  name: container-network-io
 spec:
   enable: true
-  priority: 301
-  title: fluentd-output-errors
+  priority: 802
+  title: container-network-io
   thresholds: 10
   metricsSelector:
-    component: fluentd
-    metric: output-errors
+    component: container
+    graph: network-io
   xAxis:
     show: true
   yAxis:
     show: true
-    unit: number
+    unit: kbps
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorGraph
@@ -89,20 +89,45 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     source: rancher-monitoring
-    level: cluster
-    component: fluentd
-    cluster-graph: rancher-component
-  name: fluentd-buffer-queue-length
+    level: project
+    component: container
+  name: container-network-packet
 spec:
   enable: true
-  priority: 301
-  title: fluentd-buffer-queue-length
+  priority: 803
+  title: container-network-packet
   thresholds: 10
   metricsSelector:
-    component: fluentd
-    metric: buffer-queue-length
+    component: container
+    graph: network-packet
   xAxis:
     show: true
   yAxis:
     show: true
-    unit: number
+    unit: pps
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: project
+    component: container
+  name: container-disk-io
+spec:
+  enable: true
+  priority: 804
+  title: container-disk-io
+  thresholds: 10
+  metricsSelector:
+    component: container
+    graph: disk-io
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: kbps

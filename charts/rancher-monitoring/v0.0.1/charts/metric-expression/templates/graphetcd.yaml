@@ -1,3 +1,91 @@
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-server-leader-sum
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 200
+  title: etcd-server-leader-sum
+  description: etcd server leader sum
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    metric: server-leader-sum
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+  isSingleStats: true
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-server-failed-proposal
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 201
+  title: etcd-server-failed-proposal
+  description: etcd server failed proposal
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    metric: server-failed-proposal
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+  isSingleStats: true
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
+  name: etcd-leader-change
+  namespace: {{ .Values.namespace }}
+spec:
+  enable: true
+  priority: 202
+  title: etcd-leader-change
+  description: etcd leader change
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    metric: server-leader-changes-seen-sum-increase
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: number
+  isSingleStats: true
+---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorGraph
 metadata:
@@ -13,7 +101,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   enable: true
-  priority: 202
+  priority: 203
   title: etcd-grpc-client
   description: etcd grpc client receive/send bytes sum rate
   thresholds: 10
@@ -41,7 +129,7 @@ metadata:
   name: etcd-db-bytes-sum
 spec:
   enable: true
-  priority: 201
+  priority: 204
   title: etcd-db-bytes-sum
   description: etcd db bytes sum
   thresholds: 10
@@ -68,7 +156,7 @@ metadata:
   name: etcd-stream
 spec:
   enable: true
-  priority: 203
+  priority: 205
   title: etcd-stream
   description: Etcd lease/watch stream
   thresholds: 10
@@ -95,7 +183,7 @@ metadata:
   name: etcd-peer-traffic
 spec:
   enable: true
-  priority: 204
+  priority: 206
   title: etcd-peer-traffic
   description: Etcd peer traffic in/out
   thresholds: 10
@@ -149,7 +237,7 @@ metadata:
   name: etcd-raft-proposals
 spec:
   enable: true
-  priority: 206
+  priority: 207
   title: etcd-raft-proposals
   description: Etcd raft proposals
   thresholds: 10
@@ -176,7 +264,7 @@ metadata:
   name: etcd-rpc-rate
 spec:
   enable: true
-  priority: 205
+  priority: 208
   title: etcd-rpc-rate
   description: Etcd rpc-rate
   thresholds: 10
@@ -200,16 +288,43 @@ metadata:
     source: rancher-monitoring
     level: cluster
     component: etcd
+  name: etcd-disk-operate
+spec:
+  enable: true
+  priority: 209
+  title: etcd-disk-operate
+  description: Etcd disk operate
+  thresholds: 10
+  metricsSelector:
+    component: etcd
+    graph: disk-operate
+  xAxis:
+    show: true
+  yAxis:
+    show: true
+    unit: seconds
+---
+apiVersion: cluster.cattle.io/v3
+kind: MonitorGraph
+metadata:
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.version" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    source: rancher-monitoring
+    level: cluster
+    component: etcd
   name: etcd-sync-duration
 spec:
   enable: true
-  priority: 207
+  priority: 209
   title: etcd-sync-duration
   description: Etcd sync-duration
   thresholds: 10
   metricsSelector:
     component: etcd
-    graph: disk-operate-duration
+    graph: sync-duration
   xAxis:
     show: true
   yAxis:

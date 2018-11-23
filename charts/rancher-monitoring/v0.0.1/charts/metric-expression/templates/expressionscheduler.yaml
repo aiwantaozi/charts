@@ -13,12 +13,11 @@ metadata:
   name: scheduler-e-2-e-scheduling-latency-seconds-quantile
   namespace: {{ .Values.namespace }}
 spec:
-  expression: histogram_quantile(0.99, sum(scheduler_e2e_scheduling_latency_microseconds_bucket{instance=~"$InstanceName"}) by (le, instance)) / 1e+06
+  expression: histogram_quantile(0.99, sum(scheduler_e2e_scheduling_latency_microseconds_bucket) by (le, instance)) / 1e+06
   step: 10
   description: scheduler e 2 e scheduling latency seconds quantile
-  legendFormat: "E2E"
-  detailsGroupBy: instance  
-  detailsLegendFormat: "E2E([[instance]])"
+  legendFormat: "E2E latency"
+  detailsLegendFormat: "E2E latency([[instance]])"
 ---
 apiVersion: cluster.cattle.io/v3
 kind: MonitorMetric
@@ -35,9 +34,10 @@ metadata:
   name: scheduler-total-preemption-attempts
   namespace: {{ .Values.namespace }}
 spec:
-  expression: scheduler_total_preemption_attempts
+  expression: rate(scheduler_total_preemption_attempts[5m]) by ($groupBy)
   step: 10
   description: Scheduler scheduling algorithm latency seconds quantile
+  groupBy: instance
   legendFormat: "Preemption attempts"
   detailsLegendFormat: "Preemption attempts([[instance]])"
 ---
@@ -56,8 +56,8 @@ metadata:
   name: scheduler-pod-unscheduler
   namespace: {{ .Values.namespace }}
 spec:
-  expression: count(kube_pod_status_scheduled{condition="false"})
+  expression: sum(kube_pod_status_scheduled{condition="false"})
   step: 10
   description: pod unscheduler
-  legendFormat: "Pod unscheduler"
-  detailsLegendFormat: "Pod unscheduler([[instance]])"
+  legendFormat: "Scheduling failed pods"
+  detailsLegendFormat: "Scheduling failed pods"
