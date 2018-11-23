@@ -22,7 +22,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       initContainers:
-      - name: cp-plugin-json
+      - name: grafana-init-plugin-json-copy
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         volumeMounts:
         - name: grafana-static-hooks
@@ -30,7 +30,7 @@ spec:
           subPath: copy-datasource-plugin-json.sh
         - name: grafana-static-contents
           mountPath: /host
-      - name: modify-plugin-json
+      - name: grafana-init-plugin-json-modify
         image: {{ .Values.image.inits.tools.repository }}:{{ .Values.image.inits.tools.tag }}
         command:
         - /usr/bin/modify-datasource-plugin-json.sh
