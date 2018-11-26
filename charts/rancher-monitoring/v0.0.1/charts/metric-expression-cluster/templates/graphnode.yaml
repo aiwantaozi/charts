@@ -3,17 +3,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-cpu-usage
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: node
   priority: 500
   title: node-cpu-usage
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: node
@@ -22,10 +19,7 @@ spec:
     details: "true"
     component: node
     metric: cpu-usage-seconds-sum-rate
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -33,16 +27,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-cpu-load
 spec:
-  enable: true
+  resourceType: node
   priority: 501
   title: node-cpu-load
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: node
@@ -51,10 +43,7 @@ spec:
     details: "true"
     component: node
     graph: cpu-load
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -62,16 +51,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-memory-usage
 spec:
-  enable: true
+  resourceType: node
   priority: 502
   title: node-memory-usage
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: node
@@ -80,10 +67,7 @@ spec:
     details: "true"
     component: node
     metric: memory-usage-percent
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -91,16 +75,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-fs-usage-percent
 spec:
-  enable: true
+  resourceType: node
   priority: 503
   title: node-fs-usage-percent
-  description: node-fs-usage-percent
   thresholds: 10
   metricsSelector:
     details: "false"
@@ -110,10 +92,7 @@ spec:
     details: "true"
     component: node
     metric: fs-usage-percent
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -121,16 +100,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-disk-io
 spec:
-  enable: true
+  resourceType: node
   priority: 504
   title: node-disk-io
-  description: disk-io
   thresholds: 10
   metricsSelector:
     details: "false"
@@ -140,10 +117,7 @@ spec:
     details: "true"
     component: node
     graph: disk-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -151,16 +125,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-network-io
 spec:
-  enable: true
+  resourceType: node
   priority: 505
   title: node-network-io
-  description: node network-io
   thresholds: 10
   metricsSelector:
     details: "false"
@@ -170,10 +142,7 @@ spec:
     details: "true"
     component: node
     graph: network-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -181,16 +150,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: node
   name: node-network-packet
 spec:
-  enable: true
+  resourceType: node
   priority: 506
   title: node-network-packet
-  description: node network-packet
   thresholds: 10
   metricsSelector:
     details: "false"
@@ -200,8 +167,5 @@ spec:
     details: "true"
     component: node
     graph: network-packet
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: pps

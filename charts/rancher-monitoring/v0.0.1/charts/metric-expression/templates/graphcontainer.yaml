@@ -1,25 +1,25 @@
-apiVersion: cluster.cattle.io/v3
-kind: MonitorGraph
+apiVersion: management.cattle.io/v3
+kind: ProjectMonitorGraph
 metadata:
   labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    app: metric-expression
+    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: container
   name: container-cpu-usage
-  namespace: {{ .Values.namespace }}
+  namespace: cattle-prometheus
 spec:
   enable: true
   priority: 800
   title: container-cpu-usage
   thresholds: 10
   metricsSelector:
+    details: "false"
     component: container
     graph: container-cpu-usage
   detailsMetricsSelector:
+    details: "true"
     component: container
     graph: container-cpu-usage-details
   xAxis:
@@ -28,14 +28,12 @@ spec:
     show: true
     unit: mcpu
 ---
-apiVersion: cluster.cattle.io/v3
-kind: MonitorGraph
+apiVersion: management.cattle.io/v3
+kind: ProjectMonitorGraph
 metadata:
   labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    app: metric-expression
+    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: container
@@ -46,6 +44,11 @@ spec:
   title: container-memory-usage-bytes-sum
   thresholds: 10
   metricsSelector:
+    details: "false"
+    component: container
+    metric: memory-usage-bytes-sum
+  detailsMetricsSelector:
+    details: "true"
     component: container
     metric: memory-usage-bytes-sum
   xAxis:
@@ -54,14 +57,12 @@ spec:
     show: true
     unit: byte
 ---
-apiVersion: cluster.cattle.io/v3
-kind: MonitorGraph
+apiVersion: management.cattle.io/v3
+kind: ProjectMonitorGraph
 metadata:
   labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    app: metric-expression
+    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: container
@@ -72,6 +73,11 @@ spec:
   title: container-network-io
   thresholds: 10
   metricsSelector:
+    details: "false"
+    component: container
+    graph: network-io
+  detailsMetricsSelector:
+    details: "true"
     component: container
     graph: network-io
   xAxis:
@@ -80,14 +86,12 @@ spec:
     show: true
     unit: kbps
 ---
-apiVersion: cluster.cattle.io/v3
-kind: MonitorGraph
+apiVersion: management.cattle.io/v3
+kind: ProjectMonitorGraph
 metadata:
   labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    app: metric-expression
+    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: container
@@ -98,6 +102,11 @@ spec:
   title: container-network-packet
   thresholds: 10
   metricsSelector:
+    details: "false"
+    component: container
+    graph: network-packet
+  detailsMetricsSelector:
+    details: "true"
     component: container
     graph: network-packet
   xAxis:
@@ -106,14 +115,12 @@ spec:
     show: true
     unit: pps
 ---
-apiVersion: cluster.cattle.io/v3
-kind: MonitorGraph
+apiVersion: management.cattle.io/v3
+kind: ProjectMonitorGraph
 metadata:
   labels:
-    app: {{ template "app.name" . }}
-    chart: {{ template "app.version" . }}
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    app: metric-expression
+    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: container
@@ -124,6 +131,11 @@ spec:
   title: container-disk-io
   thresholds: 10
   metricsSelector:
+    details: "false"
+    component: container
+    graph: disk-io
+  detailsMetricsSelector:
+    details: "true"
     component: container
     graph: disk-io
   xAxis:

@@ -2,7 +2,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-reading
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -19,7 +18,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-reading-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -36,7 +34,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-waiting
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -53,7 +50,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-waiting-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -70,7 +66,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-writing
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -87,7 +82,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-writing-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -104,7 +98,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-accepted
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -121,7 +114,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-accepted-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -138,7 +130,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-active
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -155,7 +146,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-active-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -172,7 +162,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-handled
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -189,7 +178,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-connection-handled-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -206,7 +194,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-upstream-response-seconds-by-host
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -223,7 +210,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-upstream-response-seconds-by-host-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -240,7 +226,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-process-seconds-by-path
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -257,7 +242,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: ingresscontroller-nginx-process-seconds-by-path-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: ingresscontroller
@@ -266,7 +250,7 @@ metadata:
     metric: request-process-seconds
     source: rancher-monitoring
 spec:
-  expression: max(request_duration_seconds_bucket{le="1"}) by ()
+  expression: max(request_duration_seconds_bucket{le="1"}) 
   legendFormat: Request duration([[host]]:[[path]])
   description: ingresscontroller nginx request duration by path
 ---

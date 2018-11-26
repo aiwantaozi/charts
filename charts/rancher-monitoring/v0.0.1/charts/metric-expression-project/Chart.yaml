@@ -4,6 +4,6 @@ engine: gotpl
 maintainers:
 - name: Rancher Labs Support
   email: support@rancher.com
-name: metric-expression
+name: metric-expression-project
 version: 0.0.1
 

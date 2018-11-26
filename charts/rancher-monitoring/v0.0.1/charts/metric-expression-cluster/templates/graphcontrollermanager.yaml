@@ -4,26 +4,21 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: controllermanager
     cluster-graph: kube-component
   name: controllermanager-queue-depth
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: controllermanager
+  displayResourceType: kube-component
   priority: 310
   title: controllermanager-queue-depth
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: controllermanager
   detailsMetricsSelector:
     details: "true"
     component: controllermanager
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number

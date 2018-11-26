@@ -3,17 +3,15 @@ kind: ProjectMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: pod
   name: pod-cpu-usage
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  projectName: {{ .ProjectName }}
+  resourceType: pod
   priority: 700
   title: pod-cpu-usage
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: pod
@@ -22,10 +20,7 @@ spec:
     details: "true"
     component: pod
     graph: container-cpu-usage-details
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: mcpu
 ---
 apiVersion: management.cattle.io/v3
@@ -33,16 +28,15 @@ kind: ProjectMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: pod
   name: pod-memory-usage-bytes-sum
 spec:
-  enable: true
+  projectName: {{ .ProjectName }}
+  resourceType: pod
   priority: 701
   title: pod-memory-usage-bytes-sum
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: pod
@@ -51,10 +45,7 @@ spec:
     details: "true"
     component: pod
     metric: memory-usage-bytes-sum
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: byte
 ---
 apiVersion: management.cattle.io/v3
@@ -62,16 +53,15 @@ kind: ProjectMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: pod
   name: pod-network-io
 spec:
-  enable: true
+  projectName: {{ .ProjectName }}
+  resourceType: pod
   priority: 702
   title: pod-network-io
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: pod
@@ -80,10 +70,7 @@ spec:
     details: "true"
     component: pod
     graph: network-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -91,16 +78,15 @@ kind: ProjectMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: pod
   name: pod-network-packet
 spec:
-  enable: true
+  projectName: {{ .ProjectName }}
+  resourceType: pod
   priority: 703
   title: pod-network-packet
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: pod
@@ -109,10 +95,7 @@ spec:
     details: "true"
     component: pod
     graph: network-packet
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: pps
 ---
 apiVersion: management.cattle.io/v3
@@ -120,16 +103,15 @@ kind: ProjectMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: project
     component: pod
   name: pod-disk-io
 spec:
-  enable: true
+  projectName: {{ .ProjectName }}
+  resourceType: pod
   priority: 704
   title: pod-disk-io
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: pod
@@ -138,8 +120,6 @@ spec:
     details: "true"
     component: pod
     graph: disk-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
+---

@@ -3,18 +3,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: fluentd
     cluster-graph: rancher-component
   name: fluentd-input-record-number
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: fluentd
+  displayResourceType: rancher-component
   priority: 300
   title: fluentd-input-record-number
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: fluentd
@@ -23,10 +21,7 @@ spec:
     details: "true"
     component: fluentd
     metric: input-record
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -34,17 +29,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: fluentd
     cluster-graph: rancher-component
   name: fluentd-output-record-number
 spec:
-  enable: true
+  resourceType: fluentd
+  displayResourceType: rancher-component
   priority: 301
   title: fluentd-output-record-number
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: fluentd
@@ -53,10 +47,7 @@ spec:
     details: "true"
     component: fluentd
     metric: output-record
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -64,17 +55,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: fluentd
     cluster-graph: rancher-component
   name: fluentd-output-errors
 spec:
-  enable: true
+  resourceType: fluentd
+  displayResourceType: rancher-component
   priority: 301
   title: fluentd-output-errors
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: fluentd
@@ -83,10 +73,7 @@ spec:
     details: "true"
     component: fluentd
     metric: output-errors
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -94,17 +81,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: fluentd
     cluster-graph: rancher-component
   name: fluentd-buffer-queue-length
 spec:
-  enable: true
+  resourceType: fluentd
+  displayResourceType: rancher-component
   priority: 301
   title: fluentd-buffer-queue-length
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: fluentd
@@ -113,8 +99,5 @@ spec:
     details: "true"
     component: fluentd
     metric: buffer-queue-length
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number

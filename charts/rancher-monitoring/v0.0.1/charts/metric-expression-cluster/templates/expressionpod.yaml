@@ -2,7 +2,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-cfs-throttled-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -12,7 +11,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: CPU cfs throttled
   description: pod cpu cfs throttled seconds sum rate
 ---
@@ -20,7 +19,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-cfs-throttled-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -38,7 +36,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-memory-usage-percent
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -48,8 +45,8 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(container_memory_working_set_bytes{namespace=~"$namespace", pod_name=~"$podName",
-    container_name!=""}) by () / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace",
-    pod=~"$InstanceName"},"pod_name", "", "pod")) by ()
+    container_name!=""})  / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace",
+    pod=~"$InstanceName"},"pod_name", "", "pod")) 
   legendFormat: Memory
   description: pod memory usage percent
 ---
@@ -57,7 +54,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-memory-usage-percent-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -76,7 +72,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-fs-bytes-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -86,7 +81,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(container_fs_usage_bytes{namespace=~"$namespace", pod_name=~"$podName",
-    container_name!=""}) by ()
+    container_name!=""}) 
   legendFormat: Filesystem usage
   description: pod fs bytes sum
 ---
@@ -94,7 +89,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-fs-bytes-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -112,7 +106,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-packets-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -123,7 +116,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_receive_packets_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Receive
   description: pod network receive packets sum rate
 ---
@@ -131,7 +124,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-packets-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -150,7 +142,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-packets-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -161,7 +152,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_transmit_packets_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Transmit packets
   description: pod network transmit packets sum rate
 ---
@@ -169,7 +160,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-packets-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -188,7 +178,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-user-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -198,7 +187,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_cpu_user_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: CPU user seconds
   description: pod cpu user seconds sum rate
 ---
@@ -206,7 +195,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-user-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -224,7 +212,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-disk-io-reads-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -235,7 +222,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_fs_reads_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()  * 8 / 1024
+    container_name!=""}[5m]))   * 8 / 1024
   legendFormat: Read
   description: pod disk io reads bytes sum rate
 ---
@@ -243,7 +230,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-disk-io-reads-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -262,7 +248,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -273,7 +258,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_receive_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by () * 8 / 1024
+    container_name!=""}[5m]))  * 8 / 1024
   legendFormat: Receive
   description: pod network receive bytes sum rate
 ---
@@ -281,7 +266,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -300,7 +284,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -311,7 +294,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_transmit_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by () * 8 / 1024
+    container_name!=""}[5m]))  * 8 / 1024
   legendFormat: Transmit
   description: pod network transmit bytes sum rate
 ---
@@ -319,7 +302,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -338,7 +320,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-packets-dropped-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -349,7 +330,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_receive_packets_dropped_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Receive dropped
   description: pod network receive packets dropped sum rate
 ---
@@ -357,7 +338,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-packets-dropped-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -376,7 +356,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-memory-usage-bytes-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -386,7 +365,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(container_memory_working_set_bytes{name!~"POD", namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}) by ()
+    container_name!=""}) 
   legendFormat: Memory usage
   description: pod memory usage bytes sum
 ---
@@ -394,7 +373,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-memory-usage-bytes-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -412,7 +390,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-disk-io-writes-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -423,7 +400,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_fs_writes_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by () * 8 / 1024
+    container_name!=""}[5m]))  * 8 / 1024
   legendFormat: Write
   description: pod disk io writes bytes sum rate
 ---
@@ -431,7 +408,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-disk-io-writes-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -450,7 +426,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-errors-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -461,7 +436,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_receive_errors_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Receive errors
   description: pod network receive errors sum rate
 ---
@@ -469,7 +444,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-receive-errors-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -488,7 +462,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-usage-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -498,7 +471,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: CPU usage seconds
   description: pod cpu usage seconds sum rate
 ---
@@ -506,7 +479,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-usage-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -524,7 +496,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-errors-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -535,7 +506,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_transmit_errors_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Transmit errors
   description: pod network transmit errors sum rate
 ---
@@ -543,7 +514,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-errors-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -562,7 +532,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-packets-dropped-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -573,7 +542,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_network_transmit_packets_dropped_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: Transmit dropped
   description: pod network transmit packets dropped sum rate
 ---
@@ -581,7 +550,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-network-transmit-packets-dropped-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -600,7 +568,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-system-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod
@@ -610,7 +577,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(container_cpu_system_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
-    container_name!=""}[5m])) by ()
+    container_name!=""}[5m])) 
   legendFormat: CPU system seconds
   description: pod cpu system seconds sum rate
 ---
@@ -618,7 +585,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: pod-cpu-system-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: pod

@@ -2,7 +2,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-volumes-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -11,7 +10,7 @@ metadata:
     metric: volumes-depth
     source: rancher-monitoring
 spec:
-  expression: sum(volumes_depth{instance=~"$instance"}) by ()
+  expression: sum(volumes_depth) 
   legendFormat: Volumes depth
   description: controllermanager volumes depth
 ---
@@ -19,7 +18,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-volumes-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -28,7 +26,7 @@ metadata:
     metric: volumes-depth
     source: rancher-monitoring
 spec:
-  expression: sum(volumes_depth{instance=~"$instance"}) by (instance)
+  expression: sum(volumes_depth) by (instance)
   legendFormat: Volumes depth([[instance]])
   description: controllermanager volumes depth
 ---
@@ -36,7 +34,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-deployment-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -45,7 +42,7 @@ metadata:
     metric: deployment-depth
     source: rancher-monitoring
 spec:
-  expression: sum(deployment_depth{instance=~"$instance"}) by ()
+  expression: sum(deployment_depth) 
   legendFormat: Deployment depth
   description: controllermanager deployment adds
 ---
@@ -53,7 +50,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-deployment-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -62,7 +58,7 @@ metadata:
     metric: deployment-depth
     source: rancher-monitoring
 spec:
-  expression: sum(deployment_depth{instance=~"$instance"}) by (instance)
+  expression: sum(deployment_depth) by (instance)
   legendFormat: Deployment depth([[instance]])
   description: controllermanager deployment adds
 ---
@@ -70,7 +66,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-replicaset-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -79,7 +74,7 @@ metadata:
     metric: replicaset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(replicaset_depth{instance=~"$instance"}) by ()
+  expression: sum(replicaset_depth) 
   legendFormat: Replicaset depth
   description: controllermanager replicaset depth
 ---
@@ -87,7 +82,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-replicaset-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -96,7 +90,7 @@ metadata:
     metric: replicaset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(replicaset_depth{instance=~"$instance"}) by (instance)
+  expression: sum(replicaset_depth) by (instance)
   legendFormat: Replicaset depth([[instance]])
   description: controllermanager replicaset depth
 ---
@@ -104,7 +98,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-service-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -113,7 +106,7 @@ metadata:
     metric: service-depth
     source: rancher-monitoring
 spec:
-  expression: sum(service_depth{instance=~"$instance"}) by ()
+  expression: sum(service_depth) 
   legendFormat: Service depth
   description: controllermanager service depth
 ---
@@ -121,7 +114,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-service-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -130,7 +122,7 @@ metadata:
     metric: service-depth
     source: rancher-monitoring
 spec:
-  expression: sum(service_depth{instance=~"$instance"}) by (instance)
+  expression: sum(service_depth) by (instance)
   legendFormat: Service depth([[instance]])
   description: controllermanager service depth
 ---
@@ -138,7 +130,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-serviceaccount-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -147,7 +138,7 @@ metadata:
     metric: serviceaccount-depth
     source: rancher-monitoring
 spec:
-  expression: sum(serviceaccount_depth{instance=~"$instance"}) by ()
+  expression: sum(serviceaccount_depth) 
   legendFormat: Serviceaccount depth
   description: controllermanager serviceaccount depth
 ---
@@ -155,7 +146,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-serviceaccount-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -164,7 +154,7 @@ metadata:
     metric: serviceaccount-depth
     source: rancher-monitoring
 spec:
-  expression: sum(serviceaccount_depth{instance=~"$instance"}) by (instance)
+  expression: sum(serviceaccount_depth) by (instance)
   legendFormat: Serviceaccount depth([[instance]])
   description: controllermanager serviceaccount depth
 ---
@@ -172,7 +162,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-endpoint-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -181,7 +170,7 @@ metadata:
     metric: endpoint-depth
     source: rancher-monitoring
 spec:
-  expression: sum(endpoint_depth{instance=~"$instance"}) by ()
+  expression: sum(endpoint_depth) 
   legendFormat: Endpoint depth
   description: controllermanager endpoint depth
 ---
@@ -189,7 +178,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-endpoint-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -198,7 +186,7 @@ metadata:
     metric: endpoint-depth
     source: rancher-monitoring
 spec:
-  expression: sum(endpoint_depth{instance=~"$instance"}) by (instance)
+  expression: sum(endpoint_depth) by (instance)
   legendFormat: Endpoint depth([[instance]])
   description: controllermanager endpoint depth
 ---
@@ -206,7 +194,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-daemonset-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -215,7 +202,7 @@ metadata:
     metric: daemonset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(daemonset_depth{instance=~"$instance"}) by ()
+  expression: sum(daemonset_depth) 
   legendFormat: Daemonset depth
   description: controllermanager daemonset depth
 ---
@@ -223,7 +210,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-daemonset-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -232,7 +218,7 @@ metadata:
     metric: daemonset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(daemonset_depth{instance=~"$instance"}) by (instance)
+  expression: sum(daemonset_depth) by (instance)
   legendFormat: Daemonset depth([[instance]])
   description: controllermanager daemonset depth
 ---
@@ -240,7 +226,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-deployment-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -249,7 +234,7 @@ metadata:
     metric: deployment-depth
     source: rancher-monitoring
 spec:
-  expression: sum(deployment_depth{instance=~"$instance"}) by ()
+  expression: sum(deployment_depth) 
   legendFormat: Deployment depth
   description: controllermanager deployment depth
 ---
@@ -257,7 +242,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-deployment-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -266,7 +250,7 @@ metadata:
     metric: deployment-depth
     source: rancher-monitoring
 spec:
-  expression: sum(deployment_depth{instance=~"$instance"}) by (instance)
+  expression: sum(deployment_depth) by (instance)
   legendFormat: Deployment depth([[instance]])
   description: controllermanager deployment depth
 ---
@@ -274,7 +258,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-statefulset-depth
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -283,7 +266,7 @@ metadata:
     metric: statefulset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(statefulset_depth{instance=~"$instance"}) by ()
+  expression: sum(statefulset_depth) 
   legendFormat: Statefulset depth
   description: controllermanager statefulset adds
 ---
@@ -291,7 +274,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: controllermanager-statefulset-depth-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: controllermanager
@@ -300,7 +282,7 @@ metadata:
     metric: statefulset-depth
     source: rancher-monitoring
 spec:
-  expression: sum(statefulset_depth{instance=~"$instance"}) by (instance)
+  expression: sum(statefulset_depth) by (instance)
   legendFormat: Statefulset depth([[instance]])
   description: controllermanager statefulset adds
 ---

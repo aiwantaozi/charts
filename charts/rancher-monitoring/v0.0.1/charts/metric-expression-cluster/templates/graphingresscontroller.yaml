@@ -3,18 +3,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: ingresscontroller
     cluster-graph: kube-component
   name: ingresscontroller-nginx-connection
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: ingresscontroller
+  displayResourceType: kube-component
   priority: 330
   title: ingresscontroller-nginx-connection
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: ingresscontroller
@@ -23,10 +21,7 @@ spec:
     details: "true"
     component: ingresscontroller
     graph: nginx-connection
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -34,17 +29,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: ingresscontroller
     cluster-graph: kube-component
   name: ingresscontroller-request-process-time
 spec:
-  enable: true
+  resourceType: ingresscontroller
+  displayResourceType: kube-component
   priority: 331
   title: ingresscontroller-request-process-time
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: ingresscontroller
@@ -53,10 +47,7 @@ spec:
     details: "true"
     component: ingresscontroller
     metric: request-process-seconds
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: seconds
 ---
 apiVersion: management.cattle.io/v3
@@ -64,17 +55,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: ingresscontroller
     cluster-graph: kube-component
   name: ingresscontroller-upstream-response-seconds
 spec:
-  enable: true
+  resourceType: ingresscontroller
+  displayResourceType: kube-component
   priority: 332
   title: ingresscontroller-upstream-response-seconds
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: ingresscontroller
@@ -83,9 +73,6 @@ spec:
     details: "true"
     component: ingresscontroller
     metric: upstream-response-seconds
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: seconds
   type: singlestat

@@ -3,29 +3,23 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-cpu-usage
-  namespace: cattle-prometheus
+    component: cluster
+  name: cluster-cpu-usage
 spec:
-  enable: true
-  priority: 500
-  title: node-cpu-usage
-  thresholds: 10
+  resourceType: cluster
+  priority: 100
+  title: cluster-cpu-usage
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     metric: cpu-usage-seconds-sum-rate
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     metric: cpu-usage-seconds-sum-rate
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -33,28 +27,23 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-cpu-load
+    component: cluster
+  name: cluster-cpu-load
 spec:
-  enable: true
-  priority: 501
-  title: node-cpu-load
-  thresholds: 10
+  resourceType: cluster
+  priority: 101
+  title: cluster-cpu-load
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     graph: cpu-load
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     graph: cpu-load
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -62,28 +51,23 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-memory-usage
+    component: cluster
+  name: cluster-memory-usage
 spec:
-  enable: true
-  priority: 502
-  title: node-memory-usage
-  thresholds: 10
+  resourceType: cluster
+  priority: 102
+  title: cluster-memory-usage
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     metric: memory-usage-percent
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     metric: memory-usage-percent
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -91,29 +75,24 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-fs-usage-percent
+    component: cluster
+  name: cluster-fs-usage-percent
 spec:
-  enable: true
-  priority: 503
-  title: node-fs-usage-percent
-  description: node-fs-usage-percent
+  resourceType: cluster
+  priority: 103
+  title: cluster-fs-usage-percent
   thresholds: 10
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     metric: fs-usage-percent
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     metric: fs-usage-percent
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: percent
 ---
 apiVersion: management.cattle.io/v3
@@ -121,29 +100,24 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-disk-io
+    component: cluster
+  name: cluster-disk-io
 spec:
-  enable: true
-  priority: 504
-  title: node-disk-io
-  description: disk-io
+  resourceType: cluster
+  priority: 104
+  title: cluster-disk-io
   thresholds: 10
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     graph: disk-io
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     graph: disk-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -151,29 +125,24 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-network-io
+    component: cluster
+  name: cluster-network-io
 spec:
-  enable: true
-  priority: 505
-  title: node-network-io
-  description: node network-io
+  resourceType: cluster
+  priority: 105
+  title: cluster-network-io
   thresholds: 10
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     graph: network-io
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     graph: network-io
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -181,27 +150,22 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
-    component: node
-  name: node-network-packet
+    component: cluster
+  name: cluster-network-packet
 spec:
-  enable: true
-  priority: 506
-  title: node-network-packet
-  description: node network-packet
+  resourceType: cluster
+  priority: 106
+  title: cluster-network-packet
   thresholds: 10
   metricsSelector:
     details: "false"
-    component: node
+    component: cluster
     graph: network-packet
   detailsMetricsSelector:
     details: "true"
-    component: node
+    component: cluster
     graph: network-packet
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: pps

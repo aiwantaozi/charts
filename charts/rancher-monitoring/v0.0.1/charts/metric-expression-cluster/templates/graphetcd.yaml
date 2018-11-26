@@ -4,18 +4,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-server-leader-sum
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: etcd
   priority: 200
   title: etcd-server-leader-sum
   description: etcd server leader sum
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -24,10 +21,7 @@ spec:
     details: "true"
     component: etcd
     metric: server-leader-sum
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
   type: singlestat
 ---
@@ -36,18 +30,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-server-failed-proposal
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: etcd
   priority: 201
   title: etcd-server-failed-proposal
   description: etcd server failed proposal
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -56,10 +47,7 @@ spec:
     details: "true"
     component: etcd
     metric: server-failed-proposal
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
   type: singlestat
 ---
@@ -68,18 +56,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-leader-change
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: etcd
   priority: 202
   title: etcd-leader-change
   description: etcd leader change
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -88,10 +73,7 @@ spec:
     details: "true"
     component: etcd
     metric: server-leader-changes-seen-sum-increase
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
   type: singlestat
 ---
@@ -100,18 +82,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-grpc-client
-  namespace: cattle-prometheus
 spec:
-  enable: true
+  resourceType: etcd
   priority: 203
   title: etcd-grpc-client
   description: etcd grpc client receive/send bytes sum rate
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -120,10 +99,7 @@ spec:
     details: "true"
     component: etcd
     graph: rpc-client-traffic
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
 ---
 apiVersion: management.cattle.io/v3
@@ -131,18 +107,16 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
     metric: db-bytes-sum 
   name: etcd-db-bytes-sum
 spec:
-  enable: true
+  resourceType: etcd
   priority: 204
   title: etcd-db-bytes-sum
   description: etcd db bytes sum
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -151,10 +125,7 @@ spec:
     details: "true"
     component: etcd
     metric: db-bytes-sum 
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: byte
 ---
 apiVersion: management.cattle.io/v3
@@ -162,17 +133,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-stream
 spec:
-  enable: true
+  resourceType: etcd
   priority: 205
   title: etcd-stream
   description: Etcd lease/watch stream
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -181,10 +150,7 @@ spec:
     details: "true"
     component: etcd
     graph: etcd-stream
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -192,17 +158,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-peer-traffic
 spec:
-  enable: true
+  resourceType: etcd
   priority: 206
   title: etcd-peer-traffic
   description: Etcd peer traffic in/out
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -211,58 +175,23 @@ spec:
     details: "true"
     component: etcd
     graph: etcd-peer-traffic
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: kbps
----
-# apiVersion: management.cattle.io/v3
-# kind: ClusterMonitorGraph
-# metadata:
-#   labels:
-#     app: metric-expression
-# #     namespace: cattle-prometheus
-# #     source: rancher-monitoring
-#     level: cluster
-#     component: etcd
-#   name: etcd-memory
-# spec:
-#   enable: true
-#   priority: 20
-#   title: etcd-memory
-#   description: Etcd peer traffic in/out
-#   thresholds: 10
-#   metricsSelector:
-#  details: "false"
-#     component: etcd
-#     metric: memorymetricsSelector:
-#     detailsMomponent: etcd
-  # details: "true"
-#     metric: memory
-# 
-#   xAxis:
-#     show: true
-#   yAxis:
-#     show: true
-#     unit: per
 ---
 apiVersion: management.cattle.io/v3
 kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-raft-proposals
 spec:
-  enable: true
+  resourceType: etcd
   priority: 207
   title: etcd-raft-proposals
   description: Etcd raft proposals
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -271,10 +200,7 @@ spec:
     details: "true"
     component: etcd
     graph: proposal
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -282,17 +208,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-rpc-rate
 spec:
-  enable: true
+  resourceType: etcd
   priority: 208
   title: etcd-rpc-rate
   description: Etcd rpc-rate
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -301,10 +225,7 @@ spec:
     details: "true"
     component: etcd
     graph: rpc-rate
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: ops
 ---
 apiVersion: management.cattle.io/v3
@@ -312,17 +233,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-disk-operate
 spec:
-  enable: true
+  resourceType: etcd
   priority: 209
   title: etcd-disk-operate
   description: Etcd disk operate
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -331,10 +250,7 @@ spec:
     details: "true"
     component: etcd
     graph: disk-operate
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: seconds
 ---
 apiVersion: management.cattle.io/v3
@@ -342,17 +258,15 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: etcd
   name: etcd-sync-duration
 spec:
-  enable: true
+  resourceType: etcd
   priority: 209
   title: etcd-sync-duration
   description: Etcd sync-duration
-  thresholds: 10
   metricsSelector:
     details: "false"
     component: etcd
@@ -361,8 +275,5 @@ spec:
     details: "true"
     component: etcd
     graph: sync-duration
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: seconds

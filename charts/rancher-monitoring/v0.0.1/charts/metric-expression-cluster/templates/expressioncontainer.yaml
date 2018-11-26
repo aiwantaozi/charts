@@ -2,19 +2,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-cfs-throttled-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU cfs throttled
   description: container cpu cfs throttled seconds sum rate
@@ -23,19 +19,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-cfs-throttled-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_cfs_throttled_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU cfs throttled([[container_name]])
   description: container cpu cfs throttled seconds sum rate
@@ -44,19 +36,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-usage-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: container-cpu-usage
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_usage_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU usage seconds
   description: container cpu usage seconds sum rate
@@ -65,19 +53,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-usage-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: container-cpu-usage
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_usage_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_usage_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU usage seconds([[container_name]])
   description: container cpu usage seconds sum rate
@@ -86,19 +70,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-system-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_system_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_system_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU system seconds
   description: container cpu system seconds sum rate
@@ -107,19 +87,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-system-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_system_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_system_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU system seconds([[container_name]])
   description: container cpu system seconds sum rate
@@ -128,19 +104,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-user-seconds-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_user_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_user_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU user seconds
   description: container cpu user seconds sum rate
@@ -149,19 +121,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-cpu-user-seconds-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: container-cpu-usage-details
-    
     level: project
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_cpu_user_seconds_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_cpu_user_seconds_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)
   legendFormat: CPU user seconds([[container_name]])
   description: container cpu user seconds sum rate
@@ -170,20 +138,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-memory-usage-percent
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
-    
     level: project
     metric: memory-usage-percent
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_memory_working_set_bytes{nnamespace=~"$nnamespace", pod_name=~"$podName",
-    container_name=~"$containerName"}) by (container_name) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{nnamespace=~"$nnamespace",
+  expression: sum(container_memory_working_set_bytes{namespace=~"$namespace", pod_name=~"$podName",
+    container_name=~"$containerName"}) by (container_name) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace",
     pod=~"$podName", container=~"$containerName"},"container_name", "", "container"))
     by (container_name)
   legendFormat: Memory
@@ -193,20 +157,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-memory-usage-percent-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
-    
     level: project
     metric: memory-usage-percent
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_memory_working_set_bytes{nnamespace=~"$nnamespace", pod_name=~"$podName",
-    container_name=~"$containerName"}) by (container_name) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{nnamespace=~"$nnamespace",
+  expression: sum(container_memory_working_set_bytes{namespace=~"$namespace", pod_name=~"$podName",
+    container_name=~"$containerName"}) by (container_name) / sum(label_join(kube_pod_container_resource_limits_memory_bytes{namespace=~"$namespace",
     pod=~"$podName", container=~"$containerName"},"container_name", "", "container"))
     by (container_name)
   legendFormat: Memory([[container_name]])
@@ -216,19 +176,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-memory-usage-bytes-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
-    
     level: project
     metric: memory-usage-bytes-sum
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_memory_working_set_bytes{name!~"POD", nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}) by (container_name)
   legendFormat: Memory usage
   description: container memory usage bytes sum
@@ -237,19 +193,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-memory-usage-bytes-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
-    
     level: project
     metric: memory-usage-bytes-sum
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_memory_working_set_bytes{name!~"POD", nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(container_memory_working_set_bytes{name!~"POD", namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}) by (container_name)
   legendFormat: Memory usage([[container_name]])
   description: container memory usage bytes sum
@@ -258,19 +210,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-fs-bytes-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
-    
     level: project
     metric: fs-bytes-sum
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_fs_usage_bytes{nnamespace=~"$nnamespace", pod_name=~"$podName",
+  expression: sum(container_fs_usage_bytes{namespace=~"$namespace", pod_name=~"$podName",
     container_name=~"$containerName"}) by (container_name)
   legendFormat: Filesystem usage
   description: container fs bytes sum
@@ -279,19 +227,15 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-fs-bytes-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
-    
     level: project
     metric: fs-bytes-sum
-    
     source: rancher-monitoring
 spec:
-  expression: sum(container_fs_usage_bytes{nnamespace=~"$nnamespace", pod_name=~"$podName",
+  expression: sum(container_fs_usage_bytes{namespace=~"$namespace", pod_name=~"$podName",
     container_name=~"$containerName"}) by (container_name)
   legendFormat: Filesystem usage([[container_name]])
   description: container fs bytes sum
@@ -300,20 +244,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-disk-io-writes-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: disk-io
-    
     level: project
     metric: disk-io-writes-bytes-sum-rate
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_fs_writes_bytes_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_fs_writes_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name) * 8 / 1024
   legendFormat: Write
   description: container disk io writes bytes sum rate
@@ -322,20 +262,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-disk-io-writes-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: disk-io
-    
     level: project
     metric: disk-io-writes-bytes-sum-rate
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_fs_writes_bytes_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_fs_writes_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name) * 8 / 1024
   legendFormat: Write([[container_name]])
   description: container disk io writes bytes sum rate
@@ -344,20 +280,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-disk-io-reads-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "false"
     graph: disk-io
-    
     level: project
     metric: disk-io-reads-bytes-sum-rate
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_fs_reads_bytes_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_fs_reads_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)  * 8 / 1024
   legendFormat: Read
   description: container disk io reads bytes sum rate
@@ -366,20 +298,16 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: container-disk-io-reads-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
-    
     component: container
     details: "true"
     graph: disk-io
-    
     level: project
     metric: disk-io-reads-bytes-sum-rate
-    
     source: rancher-monitoring
 spec:
-  expression: sum(rate(container_fs_reads_bytes_total{nnamespace=~"$nnamespace",pod_name=~"$podName",
+  expression: sum(rate(container_fs_reads_bytes_total{namespace=~"$namespace",pod_name=~"$podName",
     container_name=~"$containerName"}[5m])) by (container_name)  * 8 / 1024
   legendFormat: Read([[container_name]])
   description: container disk io reads bytes sum rate

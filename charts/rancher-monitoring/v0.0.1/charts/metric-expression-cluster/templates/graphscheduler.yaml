@@ -3,15 +3,14 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: scheduler
     cluster-graph: kube-component
   name: scheduler-e-2-e-scheduling-latency-seconds-quantile
-  namespace: cattle-prometheus
 spec:
   enable: true
+  resourceType: scheduler
   priority: 320
   title: scheduler-e-2-e-scheduling-latency-seconds-quantile
   thresholds: 10
@@ -23,10 +22,7 @@ spec:
     details: "true"
     component: scheduler
     metric: e-2-e-scheduling-latency-seconds-quantile
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: seconds
 ---
 apiVersion: management.cattle.io/v3
@@ -34,7 +30,6 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: scheduler
@@ -42,6 +37,7 @@ metadata:
   name: scheduler-total-preemption-attempts
 spec:
   enable: true
+  resourceType: scheduler
   priority: 321
   title: scheduler-total-preemption-attempts
   thresholds: 10
@@ -53,10 +49,7 @@ spec:
     details: "true"
     component: scheduler
     metric: total-preemption-attempts
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number
 ---
 apiVersion: management.cattle.io/v3
@@ -64,7 +57,6 @@ kind: ClusterMonitorGraph
 metadata:
   labels:
     app: metric-expression
-    namespace: cattle-prometheus
     source: rancher-monitoring
     level: cluster
     component: scheduler
@@ -72,6 +64,7 @@ metadata:
   name: scheduler-pod-unscheduler
 spec:
   enable: true
+  resourceType: scheduler
   priority: 322
   title: scheduler-pod-unscheduler
   thresholds: 10
@@ -83,8 +76,5 @@ spec:
     details: "true"
     component: scheduler
     metric: pod-unscheduler
-  xAxis:
-    show: true
   yAxis:
-    show: true
     unit: number

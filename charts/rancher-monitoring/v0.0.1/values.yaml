@@ -277,9 +277,11 @@ prometheus:
     - source_labels: [__meta_kubernetes_service_name]
       regex: prometheus-operated
       action: drop
-metric-expression:
+metric-expression-project:
   enabled: false
-  namespace: cattle-prometheus
+metric-expression-cluster:
+  enabled: false
+  
 exporter-fluentd:
   enabled: false
   apiGroup: "monitoring.coreos.com"

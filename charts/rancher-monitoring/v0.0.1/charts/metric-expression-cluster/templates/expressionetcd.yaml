@@ -2,7 +2,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-failed-proposal
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -19,7 +18,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-failed-proposal-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -36,7 +34,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-leader-changes-seen-sum-increase
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -53,7 +50,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-leader-changes-seen-sum-increase-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -70,7 +66,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-client-receive-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -80,7 +75,7 @@ metadata:
     metric: grpc-client-receive-bytes-sum-rate
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_network_client_grpc_received_bytes_total[5m])) by () *
+  expression: sum(rate(etcd_network_client_grpc_received_bytes_total[5m]))  *
     8 / 1024
   legendFormat: Client traffic in
   description: etcd grpc client receive bytes sum rate
@@ -89,7 +84,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-client-receive-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -108,7 +102,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-db-bytes-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -117,7 +110,7 @@ metadata:
     metric: db-bytes-sum
     source: rancher-monitoring
 spec:
-  expression: sum(etcd_debugging_mvcc_db_total_size_in_bytes) by ()
+  expression: sum(etcd_debugging_mvcc_db_total_size_in_bytes) 
   legendFormat: DB size
   description: etcd db bytes sum
 ---
@@ -125,7 +118,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-db-bytes-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -142,7 +134,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-client-transmit-bytes-sum-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -152,7 +143,7 @@ metadata:
     metric: grpc-client-transmit-bytes-sum-rate
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_network_client_grpc_sent_bytes_total[5m])) by ()
+  expression: sum(rate(etcd_network_client_grpc_sent_bytes_total[5m])) 
   legendFormat: Client traffic out
   description: etcd grpc client transmit bytes sum rate
 ---
@@ -160,7 +151,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-client-transmit-bytes-sum-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -178,7 +168,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-leader-sum
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -195,7 +184,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-leader-sum-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -212,7 +200,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-committed-sum-increase
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -222,7 +209,7 @@ metadata:
     metric: server-proposals-committed-sum-increase
     source: rancher-monitoring
 spec:
-  expression: sum(increase(etcd_server_proposals_committed_total[5m])) by ()
+  expression: sum(increase(etcd_server_proposals_committed_total[5m])) 
   legendFormat: Proposal commit rate
   description: etcd server proposals committed sum increase
 ---
@@ -230,7 +217,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-committed-sum-increase-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -248,7 +234,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-applied-sum-increase
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -258,7 +243,7 @@ metadata:
     metric: server-proposals-applied-sum-increase
     source: rancher-monitoring
 spec:
-  expression: sum(increase(etcd_server_proposals_applied_total[5m])) by ()
+  expression: sum(increase(etcd_server_proposals_applied_total[5m])) 
   legendFormat: Proposals applied
   description: etcd server proposals applied sum increase
 ---
@@ -266,7 +251,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-applied-sum-increase-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -284,7 +268,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-failed-sum-increase
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -294,7 +277,7 @@ metadata:
     metric: server-proposals-failed-sum-increase
     source: rancher-monitoring
 spec:
-  expression: sum(increase(etcd_server_proposals_failed_total[5m])) by ()
+  expression: sum(increase(etcd_server_proposals_failed_total[5m])) 
   legendFormat: Proposals failed"
   description: etcd server proposals failed sum increase
 ---
@@ -302,7 +285,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-failed-sum-increase-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -320,7 +302,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-pending-sum-increase
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -330,7 +311,7 @@ metadata:
     metric: server-proposals-pending-sum-increase
     source: rancher-monitoring
 spec:
-  expression: sum(increase(etcd_server_proposals_pending[5m])) by ()
+  expression: sum(increase(etcd_server_proposals_pending[5m])) 
   legendFormat: Proposals pending"
   description: etcd server proposals pending sum increase
 ---
@@ -338,7 +319,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-server-proposals-pending-sum-increase-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -356,7 +336,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-disk-wal-fsync-duration-seconds-sum-quantile
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -367,7 +346,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[5m])))
-    by ()
+    
   legendFormat: WAL fsync"
   description: etcd disk wal fsync duration seconds sum quantile
 ---
@@ -375,7 +354,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-disk-wal-fsync-duration-seconds-sum-quantile-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -394,7 +372,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-request-error-percent
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -403,8 +380,8 @@ metadata:
     metric: grpc-request-error-percent
     source: rancher-monitoring
 spec:
-  expression: sum(rate(grpc_server_handled_total{grpc_code!="OK"}[5m])) by () / sum(rate(grpc_server_handled_total[5m]))
-    by ()
+  expression: sum(rate(grpc_server_handled_total{grpc_code!="OK"}[5m]))  / sum(rate(grpc_server_handled_total[5m]))
+    
   legendFormat: Rpc failed rate
   description: etcd grpc request error percent
 ---
@@ -412,7 +389,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-request-error-percent-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -430,7 +406,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-disk-commit-duration-seconds-sum-quantile
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -441,7 +416,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket[5m])))
-    by ()
+    
   legendFormat: DB fsync
   description: etcd disk commit duration seconds sum quantile
 ---
@@ -449,7 +424,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-disk-commit-duration-seconds-sum-quantile-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -468,7 +442,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-request-slow-quantile
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -478,7 +451,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket{grpc_type="unary"}[5m]))))
-    by ()
+    
   legendFormat: Request slow"
   description: etcd grpc request slow quantile
 ---
@@ -486,7 +459,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-grpc-request-slow-quantile-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -504,7 +476,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-active-watch-stream
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -515,8 +486,8 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(grpc_server_started_total{grpc_service="etcdserverpb.Watch",grpc_type="bidi_stream"})
-    by () - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Watch",grpc_type="bidi_stream"})
-    by ()
+     - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Watch",grpc_type="bidi_stream"})
+    
   legendFormat: Watch streams
   description: Etcd watch stream
 ---
@@ -524,7 +495,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-active-watch-stream-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -544,7 +514,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-lease-watch-stream
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -555,8 +524,8 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(grpc_server_started_total{grpc_service="etcdserverpb.Lease",grpc_type="bidi_stream"})
-    by () - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Lease",grpc_type="bidi_stream"})
-    by ()
+     - sum(grpc_server_handled_total{grpc_service="etcdserverpb.Lease",grpc_type="bidi_stream"})
+    
   legendFormat: Lease watch stream
   description: Etcd lease stream
 ---
@@ -564,7 +533,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-lease-watch-stream-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -584,7 +552,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-peer-traffic-in
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -594,7 +561,7 @@ metadata:
     metric: peer-traffic-in
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_network_peer_received_bytes_total[5m])) by () * 8 / 1024
+  expression: sum(rate(etcd_network_peer_received_bytes_total[5m]))  * 8 / 1024
   legendFormat: Traffic in"
   description: Etcd peer traffic in
 ---
@@ -602,7 +569,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-peer-traffic-in-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -621,7 +587,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-peer-traffic-out
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -631,7 +596,7 @@ metadata:
     metric: peer-traffic-out
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_network_peer_sent_bytes_total[5m])) by ()
+  expression: sum(rate(etcd_network_peer_sent_bytes_total[5m])) 
   legendFormat: Traffic out"
   description: Etcd peer traffic out
 ---
@@ -639,7 +604,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-peer-traffic-out-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -657,7 +621,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-proposal-failure-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -666,7 +629,7 @@ metadata:
     level: cluster
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_server_proposals_failed_total[5m])) by ()
+  expression: sum(rate(etcd_server_proposals_failed_total[5m])) 
   legendFormat: Proposal failure"
   description: Proposal Failure Rate
 ---
@@ -674,7 +637,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-proposal-failure-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -691,7 +653,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-rpc-rate
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -700,7 +661,7 @@ metadata:
     level: cluster
     source: rancher-monitoring
 spec:
-  expression: sum(rate(grpc_server_started_total{grpc_type="unary"}[5m])) by ()
+  expression: sum(rate(grpc_server_started_total{grpc_type="unary"}[5m])) 
   legendFormat: Rpc rate"
   description: rpc-rate
 ---
@@ -708,7 +669,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-rpc-rate-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -725,7 +685,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-rpc-rate-failed
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -735,7 +694,7 @@ metadata:
     source: rancher-monitoring
 spec:
   expression: sum(rate(grpc_server_handled_total{grpc_type="unary",grpc_code!="OK"}[5m]))
-    by ()
+    
   legendFormat: Rpc failed rate
   description: rpc-rate
 ---
@@ -743,7 +702,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-rpc-rate-failed-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -761,7 +719,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-latency-distributions-of-commit-called-by-backend
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -770,7 +727,7 @@ metadata:
     level: cluster
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_disk_backend_commit_duration_seconds_sum[1m])) by ()
+  expression: sum(rate(etcd_disk_backend_commit_duration_seconds_sum[1m])) 
   legendFormat: Commit latency called by backend
   description: The latency distributions of commit called by backend
 ---
@@ -778,7 +735,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-latency-distributions-of-commit-called-by-backend-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -795,7 +751,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-latency-distributions-of-fsync-called-by-wal
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
@@ -804,7 +759,7 @@ metadata:
     level: cluster
     source: rancher-monitoring
 spec:
-  expression: sum(rate(etcd_disk_wal_fsync_duration_seconds_sum[1m])) by ()
+  expression: sum(rate(etcd_disk_wal_fsync_duration_seconds_sum[1m])) 
   legendFormat: Fsync latency called by wal
   description: The latency distributions of fsync called by wal
 ---
@@ -812,7 +767,6 @@ kind: MonitorMetric
 apiVersion: management.cattle.io/v3
 metadata:
   name: etcd-latency-distributions-of-fsync-called-by-wal-details
-  namespace: cattle-prometheus
   labels:
     app: metric-expression
     component: etcd
